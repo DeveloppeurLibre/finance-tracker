@@ -9,21 +9,19 @@ import SwiftUI
 
 struct AccountCell: View {
 	
-	let iconName: String
-	let name: String
-	let amount: Float
+	let account: Account
 	
     var body: some View {
 		HStack(alignment: .center, spacing: 8) {
-			Image(iconName)
+			Image(account.iconName)
 				.resizable()
 				.padding(4)
 				.frame(width: 50, height: 50)
 			VStack(alignment: .leading, spacing: 4) {
-				Text(name)
+				Text(account.name)
 					.font(.headline)
 					.foregroundColor(.primary)
-				Text("Solde : \(String(format: "%.2f", amount)) €")
+				Text("Solde : \(String(format: "%.2f", account.amount)) €")
 					.font(.footnote)
 					.foregroundColor(Color(white: 0.4))
 			}
@@ -36,8 +34,11 @@ struct AccountCell: View {
 }
 
 struct AccountCell_Previews: PreviewProvider {
+	
+	static let previewAccount = Account(iconName: "icon_002", name: "PayPal", amount: 3259.60)
+	
     static var previews: some View {
-		AccountCell(iconName: "icon_002", name: "PayPal", amount: 3259.60)
+		AccountCell(account: previewAccount)
 			.padding()
 			.background(Color("grey"))
 			.previewLayout(.sizeThatFits)

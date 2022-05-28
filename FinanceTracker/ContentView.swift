@@ -10,9 +10,9 @@ import SwiftUI
 struct ContentView: View {
 	var body: some View {
 		VStack {
-			AccountCell(iconName: "icon_001", name: "Boursorama", amount: 2465.23)
-			AccountCell(iconName: "icon_002", name: "PayPal", amount: 163.09)
-			AccountCell(iconName: "icon_003", name: "Transport", amount: 23.53)
+			AccountCell(account: Account(iconName: "icon_001", name: "Boursorama", amount: 2465.23))
+			AccountCell(account: Account(iconName: "icon_002", name: "PayPal", amount: 163.09))
+			AccountCell(account: Account(iconName: "icon_003", name: "Transport", amount: 23.53))
 		}
 	}
 }
