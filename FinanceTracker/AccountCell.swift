@@ -10,6 +10,7 @@ import SwiftUI
 struct AccountCell: View {
 	
 	let account: Account
+	@State var isFavourite: Bool = false
 	
     var body: some View {
 		HStack(alignment: .center, spacing: 8) {
@@ -24,6 +25,13 @@ struct AccountCell: View {
 				Text("Solde : \(String(format: "%.2f", account.amount)) €")
 					.font(.footnote)
 					.foregroundColor(Color(white: 0.4))
+			}
+			Spacer()
+			Button {
+				isFavourite.toggle()
+			} label: {
+				Image(systemName: isFavourite ? "star.fill" : "star")
+					.foregroundColor(isFavourite ? .yellow : Color(white: 0.4))
 			}
 		}
 		.frame(maxWidth: .infinity, alignment: .leading)
