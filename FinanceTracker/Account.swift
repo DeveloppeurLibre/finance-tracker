@@ -7,7 +7,8 @@
 
 import Foundation
 
-struct Account {
+struct Account: Identifiable {
+	let id = UUID()
 	let iconName: String
 	let name: String
 	let amount: Float
