@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		645F7D51284B8F6E0073B070 /* Currency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645F7D50284B8F6E0073B070 /* Currency.swift */; };
+		645F7D53284BA9330073B070 /* CurrencySelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645F7D52284BA9330073B070 /* CurrencySelector.swift */; };
+		645F7D57284BBBEC0073B070 /* AccountCreationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645F7D56284BBBEC0073B070 /* AccountCreationView.swift */; };
 		6499E913283D095A0072AA7D /* FinanceTrackerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6499E912283D095A0072AA7D /* FinanceTrackerApp.swift */; };
 		6499E915283D095A0072AA7D /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6499E914283D095A0072AA7D /* HomeView.swift */; };
 		6499E917283D095E0072AA7D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6499E916283D095E0072AA7D /* Assets.xcassets */; };
@@ -17,6 +20,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		645F7D50284B8F6E0073B070 /* Currency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Currency.swift; sourceTree = "<group>"; };
+		645F7D52284BA9330073B070 /* CurrencySelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencySelector.swift; sourceTree = "<group>"; };
+		645F7D56284BBBEC0073B070 /* AccountCreationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountCreationView.swift; sourceTree = "<group>"; };
 		6499E90F283D095A0072AA7D /* FinanceTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FinanceTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6499E912283D095A0072AA7D /* FinanceTrackerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinanceTrackerApp.swift; sourceTree = "<group>"; };
 		6499E914283D095A0072AA7D /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
@@ -58,10 +64,13 @@
 			isa = PBXGroup;
 			children = (
 				6499E912283D095A0072AA7D /* FinanceTrackerApp.swift */,
+				645F7D50284B8F6E0073B070 /* Currency.swift */,
+				645F7D52284BA9330073B070 /* CurrencySelector.swift */,
 				6499E914283D095A0072AA7D /* HomeView.swift */,
 				64D738CB2845139A00F4512E /* PreviewData.swift */,
 				64BD23FE28416D1500EC8E7D /* AccountCell.swift */,
 				64BD2403284221FA00EC8E7D /* Account.swift */,
+				645F7D56284BBBEC0073B070 /* AccountCreationView.swift */,
 				6499E916283D095E0072AA7D /* Assets.xcassets */,
 				6499E918283D095E0072AA7D /* Preview Content */,
 			);
@@ -146,8 +155,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				645F7D51284B8F6E0073B070 /* Currency.swift in Sources */,
+				645F7D57284BBBEC0073B070 /* AccountCreationView.swift in Sources */,
 				64D738CC2845139A00F4512E /* PreviewData.swift in Sources */,
 				6499E915283D095A0072AA7D /* HomeView.swift in Sources */,
+				645F7D53284BA9330073B070 /* CurrencySelector.swift in Sources */,
 				64BD2404284221FA00EC8E7D /* Account.swift in Sources */,
 				6499E913283D095A0072AA7D /* FinanceTrackerApp.swift in Sources */,
 				64BD23FF28416D1500EC8E7D /* AccountCell.swift in Sources */,
