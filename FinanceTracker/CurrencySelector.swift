@@ -9,7 +9,7 @@ import SwiftUI
 
 struct CurrencySelector: View {
 	
-	@State private var selectedCurrency: Currency = .euro
+	@Binding var selectedCurrency: Currency
 	@State private var isSelectingMode = false
 	private let currencies = Currency.allCases
 	
@@ -34,8 +34,11 @@ struct CurrencySelector: View {
 }
 
 struct CurrencySelector_Previews: PreviewProvider {
+	
+	@State static var previewSelectedCurrency: Currency = .dollar
+	
     static var previews: some View {
-        CurrencySelector()
+		CurrencySelector(selectedCurrency: $previewSelectedCurrency)
 			.padding()
 			.previewLayout(.sizeThatFits)
     }
