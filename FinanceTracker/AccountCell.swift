@@ -43,7 +43,13 @@ struct AccountCell: View {
 
 struct AccountCell_Previews: PreviewProvider {
 	
-	static let previewAccount = Account(iconName: "icon_002", name: "PayPal", amount: 3259.60)
+	static let previewAccount = Account(
+		iconName: "icon_002",
+		name: "PayPal",
+		initialAmount: 3259.60,
+		transactions: previewTransactions,
+		currency: .euro
+	)
 	
     static var previews: some View {
 		AccountCell(account: previewAccount)

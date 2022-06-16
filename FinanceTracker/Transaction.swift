@@ -7,7 +7,8 @@
 
 import Foundation
 
-struct Transaction {
+struct Transaction: Identifiable {
+	let id = UUID()
 	let label: String
 	let amount: Float
 	let currency: Currency

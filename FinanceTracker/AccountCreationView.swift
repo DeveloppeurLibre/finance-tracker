@@ -69,7 +69,9 @@ struct AccountCreationView: View {
 				let newAccount = Account(
 					iconName: selectedIcon,
 					name: accountName,
-					amount: Float(amount) ?? 0
+					initialAmount: Float(amount) ?? 0,
+					transactions: [],
+					currency: selectedCurrency
 				)
 				onAccountCreated(newAccount)
 				presentationMode.wrappedValue.dismiss()
