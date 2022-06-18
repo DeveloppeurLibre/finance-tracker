@@ -48,6 +48,8 @@ struct AccountDetailView: View {
 
 struct AccountDetailView_Previews: PreviewProvider {
     static var previews: some View {
-		AccountDetailView(account: previewAccounts[0])
+		NavigationView {
+			AccountDetailView(account: previewAccounts[0])
+		}
     }
 }
