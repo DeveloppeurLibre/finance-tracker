@@ -13,7 +13,7 @@ class Account: Identifiable, ObservableObject {
 	let iconName: String
 	let name: String
 	let initialAmount: Float
-	let transactions: [Transaction]
+	@Published var transactions: [Transaction]
 	var amount: Float {
 		initialAmount + transactions.map { $0.amount }.reduce(0, +)
 	}

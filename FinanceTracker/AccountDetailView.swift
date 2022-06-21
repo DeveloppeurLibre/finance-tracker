@@ -10,6 +10,7 @@ import SwiftUI
 struct AccountDetailView: View {
 	
 	let account: Account
+	@State private var isPresentingNewTransactionScreen = false
 	
     var body: some View {
 		ScrollView {
@@ -22,7 +23,7 @@ struct AccountDetailView: View {
 						.font(.system(size: 32, weight: .light))
 				}
 				AccentButton(title: "+ transaction", color: Color("purple")) {
-					// action
+					isPresentingNewTransactionScreen = true
 				}
 				Divider()
 				VStack(spacing: 16) {
@@ -43,6 +44,9 @@ struct AccountDetailView: View {
 			.padding()
 		}
 		.background(Color("grey"))
+		.sheet(isPresented: $isPresentingNewTransactionScreen, content: {
+//			NewTransactionView(accountsList: ???)
+		})
     }
 }
 

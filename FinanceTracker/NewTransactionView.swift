@@ -9,7 +9,8 @@ import SwiftUI
 
 struct NewTransactionView: View {
 	
-	let accountsList: AccountsList
+	@Environment(\.presentationMode) var presentationMode
+	@ObservedObject var accountsList: AccountsList
 	@State private var selectedAccountIndex = 0
 	@State private var textFieldAmount = ""
 	@State private var transactionName = ""
@@ -44,6 +45,17 @@ struct NewTransactionView: View {
 				DatePicker("Date :", selection: $transactionDate)
 					.padding(.leading, 24)
 					.padding(.trailing, 8)
+			}
+			Spacer()
+			MainButton(title: "Ajouter") {
+				let newTransaction = Transaction(
+					label: transactionName,
+					amount: Float(textFieldAmount) ?? 0.0,
+					currency: accountsList.accounts[selectedAccountIndex].currency,
+					date: transactionDate
+				)
+				accountsList.accounts[selectedAccountIndex].transactions.append(newTransaction)
+				presentationMode.wrappedValue.dismiss()
 			}
 		}
 		.padding()
