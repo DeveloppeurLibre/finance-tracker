@@ -13,6 +13,7 @@ struct NewTransactionView: View {
 	@State private var selectedAccountIndex = 0
 	@State private var textFieldAmount = ""
 	@State private var transactionName = ""
+	@State private var transactionDate = Date()
 
     var body: some View {
 		VStack(spacing: 32) {
@@ -40,6 +41,9 @@ struct NewTransactionView: View {
 					.padding(.horizontal, 12)
 					.background(Color.white)
 					.cornerRadius(.infinity)
+				DatePicker("Date :", selection: $transactionDate)
+					.padding(.leading, 24)
+					.padding(.trailing, 8)
 			}
 		}
 		.padding()
