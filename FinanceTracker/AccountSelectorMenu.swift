@@ -27,7 +27,9 @@ struct AccountSelectorMenu: View {
 				.padding(.horizontal, 12)
 				Spacer()
 				Button {
-					isShowingAccountsList.toggle()
+					withAnimation {
+						isShowingAccountsList.toggle()
+					}
 				} label: {
 					Image(systemName: isShowingAccountsList ? "multiply.circle" : "ellipsis.circle.fill")
 						.font(.system(size: 32))
