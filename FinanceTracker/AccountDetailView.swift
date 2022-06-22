@@ -9,8 +9,11 @@ import SwiftUI
 
 struct AccountDetailView: View {
 	
+	@Environment(\.presentationMode) var presentationMode
+	@EnvironmentObject var accountsList: AccountsList
 	@ObservedObject var account: Account
 	@State private var isPresentingNewTransactionScreen = false
+	@State private var isShowingAlert = false
 	
     var body: some View {
 		ScrollView {
@@ -47,6 +50,36 @@ struct AccountDetailView: View {
 		.sheet(isPresented: $isPresentingNewTransactionScreen, content: {
 			NewTransactionView()
 		})
+		.toolbar {
+			Menu {
+				Button {
+					// action
+				} label: {
+					Label("Renommer", systemImage: "pencil")
+				}
+				Button(role: .destructive) {
+					isShowingAlert = true
+				} label: {
+					Label("Supprimer", systemImage: "trash")
+				}
+			} label: {
+				Image(systemName: "slider.horizontal.3")
+					.foregroundColor(.primary)
+			}
+		}
+		.alert(isPresented: $isShowingAlert) {
+			Alert(
+				title: Text("Attends !"),
+				message: Text("Es-tu sûr de vouloir supprimer ce compte ? Toutes les transactions liées seront perdues."),
+				primaryButton: .destructive(Text("Supprimer"), action: {
+					accountsList.accounts.removeAll { element in
+						element.id == account.id
+					}
+					presentationMode.wrappedValue.dismiss()
+				}),
+				secondaryButton: .cancel(Text("Annuler"))
+			)
+		}
     }
 }
 
