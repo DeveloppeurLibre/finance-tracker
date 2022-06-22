@@ -11,6 +11,7 @@ struct NewTransactionView: View {
 	
 	@Environment(\.presentationMode) var presentationMode
 	@EnvironmentObject var accountsList: AccountsList
+	@State private var isPresentingNewAccountScreen = false
 	@State private var selectedAccountIndex = 0
 	@State private var textFieldAmount = ""
 	@State private var transactionName = ""
@@ -35,6 +36,7 @@ struct NewTransactionView: View {
 			VStack(spacing: 16) {
 				AccountSelectorMenu(accountsList: accountsList, selectedAccountIndex: $selectedAccountIndex, onCreateAccountButtonPressed: {
 					// à completer plus tard
+					isPresentingNewAccountScreen = true
 				})
 				TextField("Ex : Loyer...", text: $transactionName)
 					.submitLabel(.done)
@@ -61,6 +63,11 @@ struct NewTransactionView: View {
 		.padding()
 		.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
 		.background(Color("grey"))
+		.sheet(isPresented: $isPresentingNewAccountScreen) {
+			AccountCreationView { newAccount in
+				accountsList.accounts.append(newAccount)
+			}
+		}
     }
 }
 
