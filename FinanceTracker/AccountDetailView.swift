@@ -9,7 +9,7 @@ import SwiftUI
 
 struct AccountDetailView: View {
 	
-	let account: Account
+	@ObservedObject var account: Account
 	@State private var isPresentingNewTransactionScreen = false
 	
     var body: some View {
@@ -45,7 +45,7 @@ struct AccountDetailView: View {
 		}
 		.background(Color("grey"))
 		.sheet(isPresented: $isPresentingNewTransactionScreen, content: {
-//			NewTransactionView(accountsList: ???)
+			NewTransactionView()
 		})
     }
 }

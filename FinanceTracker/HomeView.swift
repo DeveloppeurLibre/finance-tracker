@@ -34,6 +34,7 @@ struct HomeView: View {
 								ForEach(accountsList.accounts) { account in
 									NavigationLink {
 										AccountDetailView(account: account)
+											.environmentObject(accountsList)
 									} label: {
 										AccountCell(account: account)
 									}

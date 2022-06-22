@@ -10,7 +10,7 @@ import SwiftUI
 struct NewTransactionView: View {
 	
 	@Environment(\.presentationMode) var presentationMode
-	@ObservedObject var accountsList: AccountsList
+	@EnvironmentObject var accountsList: AccountsList
 	@State private var selectedAccountIndex = 0
 	@State private var textFieldAmount = ""
 	@State private var transactionName = ""
@@ -65,7 +65,8 @@ struct NewTransactionView: View {
 }
 
 struct NewTransactionView_Previews: PreviewProvider {
-    static var previews: some View {
-		NewTransactionView(accountsList: AccountsList(accounts: previewAccounts))
-    }
+	static var previews: some View {
+		NewTransactionView()
+			.environmentObject(AccountsList(accounts: previewAccounts))
+	}
 }
