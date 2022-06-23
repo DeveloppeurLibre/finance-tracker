@@ -11,7 +11,7 @@ class Account: Identifiable, ObservableObject {
 	
 	let id = UUID()
 	let iconName: String
-	let name: String
+	@Published var name: String
 	let initialAmount: Float
 	@Published var transactions: [Transaction]
 	var amount: Float {

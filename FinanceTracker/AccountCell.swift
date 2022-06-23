@@ -9,7 +9,7 @@ import SwiftUI
 
 struct AccountCell: View {
 	
-	let account: Account
+	@ObservedObject var account: Account
 	@State var isFavourite: Bool = false
 	
     var body: some View {

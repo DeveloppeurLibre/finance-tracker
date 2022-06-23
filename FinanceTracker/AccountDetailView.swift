@@ -16,13 +16,21 @@ struct AccountDetailView: View {
 	@State private var isShowingAlert = false
 	@State private var isShowingTransactionAlert = false
 	@State private var selectedTransactionToDelete: Transaction? = nil
+	@State private var isEditingMode = false
+	@FocusState private var focusedField: Field?
 	
     var body: some View {
 		ScrollView {
 			VStack(spacing: 24) {
 				HStack {
-					Text(account.name)
-						.font(.system(size: 32, weight: .bold))
+					if isEditingMode {
+						TextField("Entrez un nom...", text: $account.name)
+							.font(.system(size: 32, weight: .bold))
+							.focused($focusedField, equals: .name)
+					} else {
+						Text(account.name)
+							.font(.system(size: 32, weight: .bold))
+					}
 					Spacer()
 					Text("\(String(format: "%.2f", account.amount)) \(account.currency.rawValue)")
 						.font(.system(size: 32, weight: .light))
@@ -58,7 +66,8 @@ struct AccountDetailView: View {
 		.toolbar {
 			Menu {
 				Button {
-					// action
+					isEditingMode = true
+					focusedField = .name
 				} label: {
 					Label("Renommer", systemImage: "pencil")
 				}
@@ -101,6 +110,10 @@ struct AccountDetailView: View {
 			)
 		}
     }
+	
+	private enum Field: Int, Hashable {
+		case name
+	}
 }
 
 struct AccountDetailView_Previews: PreviewProvider {
