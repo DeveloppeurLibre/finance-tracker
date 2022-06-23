@@ -14,6 +14,8 @@ struct AccountDetailView: View {
 	@ObservedObject var account: Account
 	@State private var isPresentingNewTransactionScreen = false
 	@State private var isShowingAlert = false
+	@State private var isShowingTransactionAlert = false
+	@State private var selectedTransactionToDelete: Transaction? = nil
 	
     var body: some View {
 		ScrollView {
@@ -36,7 +38,10 @@ struct AccountDetailView: View {
 							.foregroundColor(Color(white: 0.4))
 					}
 					ForEach(account.transactions) { transaction in
-						TransactionCell(transaction: transaction)
+						TransactionCell(transaction: transaction, onDelete: {
+							selectedTransactionToDelete = transaction
+							isShowingTransactionAlert = true
+						})
 					}
 					Text("Solde initial : \(String(format: "%.2f", account.initialAmount)) \(account.currency.rawValue)")
 						.font(.callout)
@@ -76,6 +81,21 @@ struct AccountDetailView: View {
 						element.id == account.id
 					}
 					presentationMode.wrappedValue.dismiss()
+				}),
+				secondaryButton: .cancel(Text("Annuler"))
+			)
+		}
+		.alert(isPresented: $isShowingTransactionAlert) {
+			Alert(
+				title: Text("Hmm..."),
+				message: Text("Tu es sur le point de supprimer la transaction \"\(selectedTransactionToDelete!.label)\". Cette transaction sera perdue à jamais."),
+				primaryButton: .destructive(Text("Supprimer"), action: {
+					withAnimation {
+						account.transactions.removeAll {
+							selectedTransactionToDelete!.id == $0.id
+						}
+					}
+					selectedTransactionToDelete = nil
 				}),
 				secondaryButton: .cancel(Text("Annuler"))
 			)
