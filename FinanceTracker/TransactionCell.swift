@@ -9,9 +9,11 @@ import SwiftUI
 
 struct TransactionCell: View {
 	
-	let transaction: Transaction
+	@ObservedObject var transaction: Transaction
 	let onDelete: () -> Void
 	@State private var isDetailedMode = false
+	@State private var isEditingMode = false
+	@FocusState private var focusedField: Field?
 	
 	let dateFormatter: DateFormatter = {
 		let formatter = DateFormatter()
@@ -23,8 +25,14 @@ struct TransactionCell: View {
 		VStack(spacing: 16) {
 			HStack {
 				VStack(alignment: .leading, spacing: 4) {
-					Text(transaction.label)
-						.font(.headline)
+					if isEditingMode {
+						TextField("Ex : Repas du midi", text: $transaction.label)
+							.focused($focusedField, equals: .label)
+							.font(.headline)
+					} else {
+						Text(transaction.label)
+							.font(.headline)
+					}
 					Text(dateFormatter.string(from: transaction.date))
 						.font(.footnote)
 						.foregroundColor(Color(white: 0.4))
@@ -42,7 +50,8 @@ struct TransactionCell: View {
 							.frame(maxWidth: .infinity)
 					}
 					Button {
-						// à compléter
+						isEditingMode.toggle()
+						focusedField = .label
 					} label: {
 						Text("Renommer")
 							.foregroundColor(.blue)
@@ -61,6 +70,10 @@ struct TransactionCell: View {
 			}
 		}
     }
+	
+	private enum Field: Int, Hashable {
+		case label
+	}
 }
 
 struct TransactionCell_Previews: PreviewProvider {

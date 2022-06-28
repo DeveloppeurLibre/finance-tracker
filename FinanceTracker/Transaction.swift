@@ -9,7 +9,7 @@ import Foundation
 
 class Transaction: Identifiable, ObservableObject {
 	let id = UUID()
-	let label: String
+	@Published var label: String
 	let amount: Float
 	let currency: Currency
 	let date: Date
