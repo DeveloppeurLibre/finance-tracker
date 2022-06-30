@@ -9,6 +9,8 @@ import SwiftUI
 
 struct HomeView: View {
 	
+	@Environment(\.scenePhase) private var scenePhase
+	
 	@State private var isPresentingNewAccountScreen = false
 	@StateObject var accountsList = AccountsList()
 	
@@ -57,6 +59,15 @@ struct HomeView: View {
 			}
 		}
 		.accentColor(.black)
+		.onChange(of: scenePhase) { phase in
+			if phase == .inactive {
+				AccountsList.save(accounts: accountsList.accounts) { result in
+					if case .failure(let error) = result {
+						fatalError(error.localizedDescription)
+					}
+				}
+			}
+		}
 	}
 }
 
