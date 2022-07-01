@@ -7,9 +7,9 @@
 
 import Foundation
 
-class Account: Identifiable, ObservableObject, Encodable {
+class Account: Identifiable, ObservableObject, Codable {
 	
-	let id = UUID()
+	var id = UUID()
 	let iconName: String
 	@Published var name: String
 	let initialAmount: Float
@@ -34,6 +34,16 @@ class Account: Identifiable, ObservableObject, Encodable {
 		self.initialAmount = initialAmount
 		self.transactions = transactions
 		self.currency = currency
+	}
+	
+	required init(from decoder: Decoder) throws {
+		let container = try decoder.container(keyedBy: CodingKeys.self)
+		self.id = try container.decode(UUID.self, forKey: .id)
+		self.name = try container.decode(String.self, forKey: .name)
+		self.iconName = try container.decode(String.self, forKey: .iconName)
+		self.initialAmount = try container.decode(Float.self, forKey: .initialAmount)
+		self.currency = try container.decode(Currency.self, forKey: .currency)
+		self.transactions = try container.decode([Transaction].self, forKey: .transactions)
 	}
 	
 	func encode(to encoder: Encoder) throws {
