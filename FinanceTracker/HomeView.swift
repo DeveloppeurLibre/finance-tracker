@@ -12,9 +12,10 @@ struct HomeView: View {
 	@Environment(\.scenePhase) private var scenePhase
 	
 	@State private var isPresentingNewAccountScreen = false
+	@State private var isPresentingNewTransactionScreen = false
 	@State private var isShowingFavouritesOnly = false
+	@State private var isShowingAlert = false
 	@StateObject var accountsList = AccountsList()
-	
 	
 	var body: some View {
 		NavigationView {
@@ -26,8 +27,17 @@ struct HomeView: View {
 							.font(.system(size: 32, weight: .bold))
 					}
 					.frame(maxWidth: .infinity)
-					AccentButton(title: "+ account", color: Color("orange")) {
-						isPresentingNewAccountScreen = true
+					HStack(spacing: 16) {
+						AccentButton(title: "+ transaction", color: Color("purple")) {
+							if accountsList.accounts.isEmpty {
+								isShowingAlert = true
+							} else {
+								isPresentingNewTransactionScreen = true
+							}
+						}
+						AccentButton(title: "+ account", color: Color("orange")) {
+							isPresentingNewAccountScreen = true
+						}
 					}
 					VStack(alignment: .leading) {
 						HStack {
@@ -45,7 +55,7 @@ struct HomeView: View {
 									.padding(.trailing)
 							}
 						}
-
+						
 						if accountsList.accounts.count > 0 {
 							VStack(spacing: 16) {
 								ForEach(accountsList.accounts) { account in
@@ -73,6 +83,20 @@ struct HomeView: View {
 				AccountCreationView { newAccount in
 					accountsList.accounts.append(newAccount)
 				}
+			}
+			.sheet(isPresented: $isPresentingNewTransactionScreen, content: {
+				NewTransactionView()
+					.environmentObject(accountsList)
+			})
+			.alert(isPresented: $isShowingAlert) {
+				Alert(
+					title: Text("Hop !"),
+					message: Text("Tu dois d'abord créer un compte avant d'y associer des transactions. 😉"),
+					primaryButton: .default(Text("Créer un compte"), action: {
+						isPresentingNewAccountScreen = true
+					}),
+					secondaryButton: .default(Text("Annuler"))
+				)
 			}
 		}
 		.accentColor(.black)
