@@ -12,7 +12,9 @@ struct HomeView: View {
 	@Environment(\.scenePhase) private var scenePhase
 	
 	@State private var isPresentingNewAccountScreen = false
+	@State private var isShowingFavouritesOnly = false
 	@StateObject var accountsList = AccountsList()
+	
 	
 	var body: some View {
 		NavigationView {
@@ -28,17 +30,32 @@ struct HomeView: View {
 						isPresentingNewAccountScreen = true
 					}
 					VStack(alignment: .leading) {
-						Text("Mes comptes")
-							.font(.title2)
-							.bold()
+						HStack {
+							Text("Mes comptes")
+								.font(.title2)
+								.bold()
+							Spacer()
+							Button {
+								withAnimation {
+									isShowingFavouritesOnly.toggle()
+								}
+							} label: {
+								Image(systemName: isShowingFavouritesOnly ? "star.fill" : "star")
+									.foregroundColor(isShowingFavouritesOnly ? .yellow : Color(white: 0.4))
+									.padding(.trailing)
+							}
+						}
+
 						if accountsList.accounts.count > 0 {
 							VStack(spacing: 16) {
 								ForEach(accountsList.accounts) { account in
-									NavigationLink {
-										AccountDetailView(account: account)
-											.environmentObject(accountsList)
-									} label: {
-										AccountCell(account: account)
+									if !isShowingFavouritesOnly || account.isFavourite {
+										NavigationLink {
+											AccountDetailView(account: account)
+												.environmentObject(accountsList)
+										} label: {
+											AccountCell(account: account)
+										}
 									}
 								}
 							}

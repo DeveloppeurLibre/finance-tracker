@@ -14,6 +14,7 @@ class Account: Identifiable, ObservableObject, Codable {
 	@Published var name: String
 	let initialAmount: Float
 	@Published var transactions: [Transaction]
+	@Published var isFavourite: Bool
 	var amount: Float {
 		initialAmount + transactions.map { $0.amount }.reduce(0, +)
 	}
@@ -26,14 +27,16 @@ class Account: Identifiable, ObservableObject, Codable {
 		case initialAmount
 		case currency
 		case transactions
+		case isFavourite
 	}
 	
-	init(iconName: String, name: String, initialAmount: Float, transactions: [Transaction], currency: Currency) {
+	init(iconName: String, name: String, initialAmount: Float, transactions: [Transaction], currency: Currency, isFavourite: Bool = false) {
 		self.iconName = iconName
 		self.name = name
 		self.initialAmount = initialAmount
 		self.transactions = transactions
 		self.currency = currency
+		self.isFavourite = isFavourite
 	}
 	
 	required init(from decoder: Decoder) throws {
@@ -44,6 +47,7 @@ class Account: Identifiable, ObservableObject, Codable {
 		self.initialAmount = try container.decode(Float.self, forKey: .initialAmount)
 		self.currency = try container.decode(Currency.self, forKey: .currency)
 		self.transactions = try container.decode([Transaction].self, forKey: .transactions)
+		self.isFavourite = try container.decode(Bool.self, forKey: .isFavourite)
 	}
 	
 	func encode(to encoder: Encoder) throws {
@@ -54,5 +58,6 @@ class Account: Identifiable, ObservableObject, Codable {
 		try container.encode(initialAmount, forKey: .initialAmount)
 		try container.encode(currency.rawValue, forKey: .currency)
 		try container.encode(transactions, forKey: .transactions)
+		try container.encode(isFavourite, forKey: .isFavourite)
 	}
 }
