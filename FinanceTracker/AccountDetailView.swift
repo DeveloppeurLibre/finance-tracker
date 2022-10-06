@@ -61,7 +61,7 @@ struct AccountDetailView: View {
 		}
 		.background(Color("grey"))
 		.sheet(isPresented: $isPresentingNewTransactionScreen, content: {
-			NewTransactionView()
+			NewTransactionView(selectedAccountId: account.id)
 		})
 		.toolbar {
 			Menu {
@@ -124,6 +124,7 @@ struct AccountDetailView_Previews: PreviewProvider {
     static var previews: some View {
 		NavigationView {
 			AccountDetailView(account: previewAccounts[0])
+				.environmentObject(AccountsList(accounts: previewAccounts))
 		}
     }
 }

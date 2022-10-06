@@ -11,6 +11,7 @@ struct NewTransactionView: View {
 	
 	@Environment(\.presentationMode) var presentationMode
 	@EnvironmentObject var accountsList: AccountsList
+	let selectedAccountId: UUID?
 	@State private var isPresentingNewAccountScreen = false
 	@State private var selectedAccountIndex = 0
 	@State private var textFieldAmount = ""
@@ -68,12 +69,20 @@ struct NewTransactionView: View {
 				accountsList.accounts.append(newAccount)
 			}
 		}
+		.onAppear {
+			if let selectedAccountId {
+				let index = accountsList.accounts.firstIndex { account in
+					account.id == selectedAccountId
+				} ?? 0
+				self.selectedAccountIndex = index
+			}
+		}
     }
 }
 
 struct NewTransactionView_Previews: PreviewProvider {
 	static var previews: some View {
-		NewTransactionView()
+		NewTransactionView(selectedAccountId: previewAccounts.first!.id)
 			.environmentObject(AccountsList(accounts: previewAccounts))
 	}
 }
