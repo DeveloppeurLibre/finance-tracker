@@ -85,7 +85,7 @@ struct HomeView: View {
 				}
 			}
 			.sheet(isPresented: $isPresentingNewTransactionScreen, content: {
-				NewTransactionView()
+				NewTransactionView(selectedAccountId: nil)
 					.environmentObject(accountsList)
 			})
 			.alert(isPresented: $isShowingAlert) {
