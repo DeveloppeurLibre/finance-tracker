@@ -81,19 +81,23 @@ struct AccountDetailView: View {
 					.foregroundColor(.primary)
 			}
 		}
-		.alert(isPresented: $isShowingAlert) {
-			Alert(
-				title: Text("Attends !"),
-				message: Text("Es-tu sûr de vouloir supprimer ce compte ? Toutes les transactions liées seront perdues."),
-				primaryButton: .destructive(Text("Supprimer"), action: {
-					accountsList.accounts.removeAll { element in
-						element.id == account.id
-					}
-					presentationMode.wrappedValue.dismiss()
-				}),
-				secondaryButton: .cancel(Text("Annuler"))
-			)
+		.sheet(isPresented: $isShowingAlert) {
+			Text("Hello")
 		}
+		.alert("Attends !", isPresented: $isShowingAlert, actions: {
+			Text("Hello")
+			Button("Supprimer", role: .destructive) {
+				accountsList.accounts.removeAll { element in
+					element.id == account.id
+				}
+				presentationMode.wrappedValue.dismiss()
+			}
+			Button("Annuler", role: .cancel) {
+				isShowingAlert = false
+			}
+		}, message: {
+			Text("Es-tu sûr de vouloir supprimer ce compte ? Toutes les transactions liées seront perdues.")
+		})
 		.alert(isPresented: $isShowingTransactionAlert) {
 			Alert(
 				title: Text("Hmm..."),
