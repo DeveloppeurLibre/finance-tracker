@@ -78,6 +78,7 @@ struct HomeView: View {
 				}
 				.padding(24)
 			}
+			.navigationBarHidden(true)
 			.background(Color.appBackground)
 			.sheet(isPresented: $isPresentingNewAccountScreen) {
 				AccountCreationView { newAccount in
