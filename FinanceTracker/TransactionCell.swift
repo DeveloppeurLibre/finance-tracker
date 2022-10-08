@@ -60,9 +60,10 @@ struct TransactionCell: View {
 				}
 			}
 		}
+		.foregroundColor(Color.mainText)
 		.frame(maxWidth: .infinity, alignment: .leading)
 		.padding()
-		.background(Color.white)
+		.background(Color.cellBackground)
 		.cornerRadius(16)
 		.onTapGesture {
 			withAnimation {
@@ -80,7 +81,7 @@ struct TransactionCell_Previews: PreviewProvider {
     static var previews: some View {
 		TransactionCell(transaction: previewTransactions[0], onDelete: {})
 			.padding(24)
-			.background(Color("grey"))
+			.background(Color.appBackground)
 			.previewLayout(.sizeThatFits)
     }
 }

@@ -25,7 +25,7 @@ struct AccountCreationView: View {
 					.padding(.top, 32)
 				Text("Solde : \(String(format: "%.2f", Float(amount) ?? 0.0)) \(selectedCurrency.rawValue)")
 					.font(.system(size: 20, weight: .light))
-					.foregroundColor(Color(white: 0.4))
+					.foregroundColor(Color.secondaryText)
 					.frame(maxWidth: .infinity)
 			}
 			.frame(maxWidth: .infinity)
@@ -37,7 +37,7 @@ struct AccountCreationView: View {
 					.submitLabel(.done)
 					.padding(12)
 					.padding(.horizontal, 12)
-					.background(Color.white)
+					.background(Color.cellBackground)
 					.cornerRadius(.infinity)
 			}
 			VStack(alignment: .leading) {
@@ -61,7 +61,7 @@ struct AccountCreationView: View {
 						.foregroundColor(Color("purple"))
 						.padding(4)
 				}
-				.background(Color.white)
+				.background(Color.cellBackground)
 				.cornerRadius(.infinity)
 			}
 			Spacer()
@@ -78,7 +78,7 @@ struct AccountCreationView: View {
 			}
 		}
 		.padding()
-		.background(Color("grey"))
+		.background(Color.appBackground)
     }
 }
 

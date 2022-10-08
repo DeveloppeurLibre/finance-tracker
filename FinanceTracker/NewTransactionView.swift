@@ -21,6 +21,7 @@ struct NewTransactionView: View {
     var body: some View {
 		VStack(spacing: 32) {
 			Text("Nouvelle transaction")
+				.foregroundColor(.mainText)
 				.font(.system(size: 32, weight: .bold))
 				.padding(.top, 32)
 			HStack {
@@ -28,9 +29,10 @@ struct NewTransactionView: View {
 					.keyboardType(.numbersAndPunctuation)
 					.submitLabel(.done)
 					.font(.system(size: 48, weight: .semibold))
-					.foregroundColor(Color.black.opacity(0.4))
+					.foregroundColor(Color.secondaryText)
 					.frame(width: nil, height: nil, alignment: .trailing)
 				Text(accountsList.accounts[selectedAccountIndex].currency.rawValue)
+					.foregroundColor(.mainText)
 					.font(.system(size: 24, weight: .light))
 			}
 			.multilineTextAlignment(.center)
@@ -43,7 +45,7 @@ struct NewTransactionView: View {
 					.submitLabel(.done)
 					.padding(12)
 					.padding(.horizontal, 12)
-					.background(Color.white)
+					.background(Color.textfieldBackground)
 					.cornerRadius(.infinity)
 				DatePicker("Date :", selection: $transactionDate)
 					.padding(.leading, 24)
@@ -63,7 +65,7 @@ struct NewTransactionView: View {
 		}
 		.padding()
 		.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
-		.background(Color("grey"))
+		.background(Color.appBackground)
 		.sheet(isPresented: $isPresentingNewAccountScreen) {
 			AccountCreationView { newAccount in
 				accountsList.accounts.append(newAccount)
