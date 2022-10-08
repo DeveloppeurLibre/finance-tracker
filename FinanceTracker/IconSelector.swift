@@ -30,12 +30,12 @@ struct IconSelector: View {
 					} label: {
 						Circle()
 							.frame(width: 65, height: 65)
-							.foregroundColor(iconName == selectedIcon ? .black : .white)
+							.foregroundColor(iconName == selectedIcon ? Color.pillSelectedBackground : Color.pillBackground)
 							.overlay(
 								Image(iconName)
 									.resizable()
 									.renderingMode(.template)
-									.foregroundColor(iconName == selectedIcon ? .white : .black)
+									.foregroundColor(iconName == selectedIcon ? .mainButtonText : .mainText)
 									.frame(width: 35, height: 35)
 							)
 					}
@@ -54,6 +54,6 @@ struct IconSelector_Previews: PreviewProvider {
 		IconSelector(selectedIcon: $previewSelectedIcon)
 			.padding(.vertical)
 			.previewLayout(.sizeThatFits)
-			.background(Color("grey"))
+			.background(Color.appBackground)
 	}
 }

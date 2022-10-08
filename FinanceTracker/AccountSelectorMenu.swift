@@ -19,9 +19,9 @@ struct AccountSelectorMenu: View {
 			HStack {
 				HStack {
 					Text(accountsList.accounts[selectedAccountIndex].name)
-						.foregroundColor(.black)
+						.foregroundColor(.mainText)
 					Text("(\(String(format: "%.2f", accountsList.accounts[selectedAccountIndex].amount)) \(accountsList.accounts[selectedAccountIndex].currency.rawValue))")
-						.foregroundColor(.gray)
+						.foregroundColor(.secondaryText)
 				}
 				.padding(12)
 				.padding(.horizontal, 12)
@@ -43,9 +43,9 @@ struct AccountSelectorMenu: View {
 						Divider()
 						HStack {
 							Text(account.name)
-								.foregroundColor(.black)
+								.foregroundColor(.mainText)
 							Text("(\(String(format: "%.2f", account.amount)) \(account.currency.rawValue))")
-								.foregroundColor(.gray)
+								.foregroundColor(.secondaryText)
 						}
 						.padding(12)
 						.padding(.horizontal, 12)
@@ -68,7 +68,7 @@ struct AccountSelectorMenu: View {
 				}
 			}
 		}
-		.background(Color.white)
+		.background(Color.textfieldBackground)
 		.cornerRadius(22)
 	}
 }
@@ -81,6 +81,6 @@ struct AccountSelectorMenu_Previews: PreviewProvider {
 			onCreateAccountButtonPressed: {}
 		)
 		.padding()
-		.background(Color("grey"))
+		.background(Color.appBackground)
     }
 }

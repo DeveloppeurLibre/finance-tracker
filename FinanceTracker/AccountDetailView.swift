@@ -59,7 +59,7 @@ struct AccountDetailView: View {
 			}
 			.padding()
 		}
-		.background(Color("grey"))
+		.background(Color.appBackground)
 		.sheet(isPresented: $isPresentingNewTransactionScreen, content: {
 			NewTransactionView(selectedAccountId: account.id)
 		})

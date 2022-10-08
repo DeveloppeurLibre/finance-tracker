@@ -15,7 +15,7 @@ struct HomeView: View {
 	@State private var isPresentingNewTransactionScreen = false
 	@State private var isShowingFavouritesOnly = false
 	@State private var isShowingAlert = false
-	@StateObject var accountsList = AccountsList()
+	@StateObject var accountsList = AccountsList(accounts: previewAccounts)
 	
 	var body: some View {
 		NavigationView {
@@ -78,7 +78,7 @@ struct HomeView: View {
 				}
 				.padding(24)
 			}
-			.background(Color("grey"))
+			.background(Color.appBackground)
 			.sheet(isPresented: $isPresentingNewAccountScreen) {
 				AccountCreationView { newAccount in
 					accountsList.accounts.append(newAccount)
@@ -99,6 +99,7 @@ struct HomeView: View {
 				)
 			}
 		}
+		.foregroundColor(Color.mainText)
 		.accentColor(.black)
 		.onChange(of: scenePhase) { phase in
 			if phase == .inactive {

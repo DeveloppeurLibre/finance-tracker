@@ -14,28 +14,29 @@ struct AccountCell: View {
     var body: some View {
 		HStack(alignment: .center, spacing: 8) {
 			Image(account.iconName)
+				.renderingMode(.template)
 				.resizable()
 				.padding(4)
 				.frame(width: 50, height: 50)
 			VStack(alignment: .leading, spacing: 4) {
 				Text(account.name)
 					.font(.headline)
-					.foregroundColor(.primary)
+					.foregroundColor(.mainText)
 				Text("Solde : \(String(format: "%.2f", account.amount)) €")
 					.font(.footnote)
-					.foregroundColor(Color(white: 0.4))
+					.foregroundColor(Color.secondaryText)
 			}
 			Spacer()
 			Button {
 				account.isFavourite.toggle()
 			} label: {
 				Image(systemName: account.isFavourite ? "star.fill" : "star")
-					.foregroundColor(account.isFavourite ? .yellow : Color(white: 0.4))
+					.foregroundColor(account.isFavourite ? .yellow : .secondaryText)
 			}
 		}
 		.frame(maxWidth: .infinity, alignment: .leading)
 		.padding()
-		.background(Color.white)
+		.background(Color.cellBackground)
 		.cornerRadius(16)
     }
 }
@@ -53,7 +54,7 @@ struct AccountCell_Previews: PreviewProvider {
     static var previews: some View {
 		AccountCell(account: previewAccount)
 			.padding()
-			.background(Color("grey"))
+			.background(Color.appBackground)
 			.previewLayout(.sizeThatFits)
     }
 }

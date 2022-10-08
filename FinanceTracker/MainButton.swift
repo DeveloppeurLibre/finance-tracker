@@ -18,10 +18,10 @@ struct MainButton: View {
 		} label: {
 			Text(title)
 				.font(.headline)
-				.foregroundColor(.white)
+				.foregroundColor(Color.mainButtonText)
 				.padding()
 				.frame(maxWidth: .infinity)
-				.background(.black)
+				.background(Color.mainButtonBackground)
 				.cornerRadius(.infinity)
 		}
 	}

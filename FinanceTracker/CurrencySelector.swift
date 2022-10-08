@@ -17,6 +17,7 @@ struct CurrencySelector: View {
 		ZStack {
 			ForEach(currencies.indices) { index in
 				Image(systemName: selectedCurrency == currencies[index] ? currencies[index].filledIconName : currencies[index].iconName)
+					.foregroundColor(Color.mainText)
 					.font(.system(size: 32))
 					.offset(x: isSelectingMode ? -CGFloat(index) * 40 : 0, y: 0)
 					.opacity(selectedCurrency == currencies[index] || isSelectingMode ? 1 : 0)
