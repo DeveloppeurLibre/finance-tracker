@@ -101,7 +101,7 @@ struct HomeView: View {
 			}
 		}
 		.foregroundColor(Color.mainText)
-		.accentColor(.black)
+		.accentColor(Color.mainText)
 		.onChange(of: scenePhase) { phase in
 			if phase == .inactive {
 				AccountsList.save(accounts: accountsList.accounts) { result in
