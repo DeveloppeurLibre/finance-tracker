@@ -10,12 +10,15 @@ import SwiftUI
 struct FeedbackView: View {
 	
 	@Environment(\.presentationMode) private var presentationMode
+	
+	private let airTableRepository = AirTableRepository()
+	
 	@State private var message: String = ""
 	
     var body: some View {
 		VStack(alignment: .leading, spacing: 24) {
 			HStack(alignment: .top) {
-				Text("A toi de jouer !")
+				Text("À toi de jouer !")
 					.font(.system(size: 32, weight: .bold))
 					.padding(.top)
 				Spacer()
@@ -26,7 +29,6 @@ struct FeedbackView: View {
 						.imageScale(.large)
 						.foregroundColor(.mainText)
 				}
-
 			}
 			Text("Une idée d'amélioration ? Un bug ? Ou juste une remarque sur l'app ? Dis-nous tout ce qui pourrait rendre l'app encore meilleure !")
 				.foregroundColor(.secondaryText)
@@ -62,7 +64,9 @@ struct FeedbackView: View {
 				.font(.system(size: 14))
 				.opacity(0.5)
 			MainButton(title: "Envoyer !") {
-				
+				airTableRepository.postFeedback(message: message, completion: {
+					presentationMode.wrappedValue.dismiss()
+				})
 			}
 		}
 		.padding()

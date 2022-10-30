@@ -14,3 +14,6 @@ xcuserdata/
 ## Xcode 8 and earlier
 *.xcscmblueprint
 *.xccheckout
+
+## Private files
+FinanceTracker/API_KEY.swift
