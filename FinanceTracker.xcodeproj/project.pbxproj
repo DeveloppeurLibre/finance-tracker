@@ -23,6 +23,7 @@
 		64B844962859C2E200E2E7DE /* AccountDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64B844952859C2E200E2E7DE /* AccountDetailView.swift */; };
 		64BCE033290EC26900CF64E6 /* FeedbackFloatingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64BCE032290EC26900CF64E6 /* FeedbackFloatingButton.swift */; };
 		64BCE035290ECAD800CF64E6 /* FeedbackFloatingButtonModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64BCE034290ECAD800CF64E6 /* FeedbackFloatingButtonModifier.swift */; };
+		64BCE037290ED03400CF64E6 /* FeedbackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64BCE036290ED03400CF64E6 /* FeedbackView.swift */; };
 		64BD23FF28416D1500EC8E7D /* AccountCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64BD23FE28416D1500EC8E7D /* AccountCell.swift */; };
 		64BD2404284221FA00EC8E7D /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64BD2403284221FA00EC8E7D /* Account.swift */; };
 		64D738CC2845139A00F4512E /* PreviewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D738CB2845139A00F4512E /* PreviewData.swift */; };
@@ -49,6 +50,7 @@
 		64B844952859C2E200E2E7DE /* AccountDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountDetailView.swift; sourceTree = "<group>"; };
 		64BCE032290EC26900CF64E6 /* FeedbackFloatingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackFloatingButton.swift; sourceTree = "<group>"; };
 		64BCE034290ECAD800CF64E6 /* FeedbackFloatingButtonModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackFloatingButtonModifier.swift; sourceTree = "<group>"; };
+		64BCE036290ED03400CF64E6 /* FeedbackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackView.swift; sourceTree = "<group>"; };
 		64BD23FE28416D1500EC8E7D /* AccountCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountCell.swift; sourceTree = "<group>"; };
 		64BD2403284221FA00EC8E7D /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
 		64D738CB2845139A00F4512E /* PreviewData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewData.swift; sourceTree = "<group>"; };
@@ -106,6 +108,7 @@
 				645F7D58284E26C70073B070 /* IconSelector.swift */,
 				64BCE032290EC26900CF64E6 /* FeedbackFloatingButton.swift */,
 				64BCE034290ECAD800CF64E6 /* FeedbackFloatingButtonModifier.swift */,
+				64BCE036290ED03400CF64E6 /* FeedbackView.swift */,
 				6422DA8728F20A5B002AC199 /* Color+Extension.swift */,
 				6499E916283D095E0072AA7D /* Assets.xcassets */,
 				6499E918283D095E0072AA7D /* Preview Content */,
@@ -205,6 +208,7 @@
 				64D80D3A2850DA730058425D /* AccountList.swift in Sources */,
 				645F7D53284BA9330073B070 /* CurrencySelector.swift in Sources */,
 				64BD2404284221FA00EC8E7D /* Account.swift in Sources */,
+				64BCE037290ED03400CF64E6 /* FeedbackView.swift in Sources */,
 				644F88C0284F441200F19AAF /* AccentButton.swift in Sources */,
 				64BCE035290ECAD800CF64E6 /* FeedbackFloatingButtonModifier.swift in Sources */,
 				643DE79C2861B25B008808FB /* NewTransactionView.swift in Sources */,

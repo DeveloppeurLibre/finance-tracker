@@ -121,6 +121,7 @@ struct HomeView: View {
 				}
 			}
 		}
+		.feedbackFloatingButton()
 	}
 }
 
