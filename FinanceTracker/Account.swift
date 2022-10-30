@@ -12,7 +12,7 @@ class Account: Identifiable, ObservableObject, Codable {
 	var id = UUID()
 	let iconName: String
 	@Published var name: String
-	let initialAmount: Float
+	@Published var initialAmount: Float
 	@Published var transactions: [Transaction]
 	@Published var isFavourite: Bool
 	var amount: Float {
