@@ -9,6 +9,8 @@ import SwiftUI
 
 struct FeedbackFloatingButtonModifier: ViewModifier {
 	
+	private let preferenceRepository = PreferenceRepository()
+	@EnvironmentObject var userPreferences: UserPreferences
 	@State private var isShowingAlert = false
 	@State private var isShowingFeedbackView = false
 	
@@ -19,7 +21,11 @@ struct FeedbackFloatingButtonModifier: ViewModifier {
 			content
 				.overlay(alignment: .bottomTrailing) {
 					FeedbackFloatingButton {
-						isShowingAlert = true
+						if userPreferences.hasReadFeedbackButtonAlertMessage {
+							isShowingFeedbackView = true
+						} else {
+							isShowingAlert = true
+						}
 					}
 				}
 				.alert(isPresented: $isShowingAlert) {
@@ -28,6 +34,12 @@ struct FeedbackFloatingButtonModifier: ViewModifier {
 						message: Text("Une idée de fonctionnalité ? Un bug à corriger ? Ou simplement un avis à donner sur l'app ? Utilise ce bouton à tout moment."),
 						primaryButton: .default(Text("J'ai compris"), action: {
 							isShowingFeedbackView = true
+							userPreferences.hasReadFeedbackButtonAlertMessage = true
+							preferenceRepository.save(userPreferences: userPreferences) { result in
+								if case .failure(let error) = result {
+									fatalError(error.localizedDescription)
+								}
+							}
 						}),
 						secondaryButton: .default(Text("Annuler"))
 					)

@@ -137,7 +137,7 @@ struct HomeView: View {
 				}
 			})
 		}
-		.feedbackFloatingButton()
+		.feedbackFloatingButton(isShowingButton: $userPreferences.showFeedbackButton)
 	}
 }
 

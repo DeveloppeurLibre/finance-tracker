@@ -9,11 +9,14 @@ import SwiftUI
 
 struct FeedbackView: View {
 	
+	@EnvironmentObject var userPreferences: UserPreferences
 	@Environment(\.presentationMode) private var presentationMode
 	
 	private let airTableRepository = AirTableRepository()
+	private let preferenceRepository = PreferenceRepository()
 	
 	@State private var message: String = ""
+	@State private var isShowingAlert = false
 	
     var body: some View {
 		VStack(alignment: .leading, spacing: 24) {
@@ -53,7 +56,7 @@ struct FeedbackView: View {
 			.background(Color.cellBackground)
 			.cornerRadius(20)
 			Button {
-				//
+				isShowingAlert = true
 			} label: {
 				Text("Ne plus afficher le bouton \"Feedback\"")
 					.frame(maxWidth: .infinity)
@@ -71,6 +74,22 @@ struct FeedbackView: View {
 		}
 		.padding()
 		.background(Color.appBackground)
+		.alert(isPresented: $isShowingAlert) {
+			Alert(
+				title: Text("Ne plus afficher le bouton"),
+				message: Text("Le bouton \"Feedback\" ne sera plus affiché. Vous pourrez toujours l'afficher à nouveau dans les paramètres de l'app."),
+				primaryButton: .default(Text("Continuer"), action: {
+					userPreferences.showFeedbackButton = false
+					preferenceRepository.save(userPreferences: userPreferences) { result in
+						if case .failure(let error) = result {
+							fatalError(error.localizedDescription)
+						}
+					}
+					presentationMode.wrappedValue.dismiss()
+				}),
+				secondaryButton: .default(Text("Annuler"))
+			)
+		}
     }
 }
 

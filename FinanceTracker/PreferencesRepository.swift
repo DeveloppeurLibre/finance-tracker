@@ -75,7 +75,6 @@ class PreferenceRepository {
 									appropriateFor: nil,
 									create: false)
 		let url = path.appendingPathComponent("user_preferences.data")
-		print(url)
 		return url
 	}
 }
