@@ -45,7 +45,7 @@ struct FeedbackView: View {
 					Text("Entrez votre message...")
 						.padding(.horizontal, 4)
 						.padding(.vertical, 8)
-						.foregroundColor(.black)
+						.foregroundColor(.mainText)
 						.opacity(0.25)
 				}
 			}

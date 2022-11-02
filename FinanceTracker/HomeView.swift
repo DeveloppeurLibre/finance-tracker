@@ -9,7 +9,9 @@ import SwiftUI
 
 struct HomeView: View {
 	
+	private let preferenceRepository = PreferenceRepository()
 	@Environment(\.scenePhase) private var scenePhase
+	@EnvironmentObject var userPreferences: UserPreferences
 	
 	@State private var isPresentingNewAccountScreen = false
 	@State private var isPresentingNewTransactionScreen = false
@@ -109,6 +111,11 @@ struct HomeView: View {
 						fatalError(error.localizedDescription)
 					}
 				}
+				preferenceRepository.save(userPreferences: userPreferences) { result in
+					if case .failure(let error) = result {
+						fatalError(error.localizedDescription)
+					}
+				}
 			}
 		}
 		.onAppear {
@@ -120,6 +127,15 @@ struct HomeView: View {
 						accountsList.accounts = accounts
 				}
 			}
+			preferenceRepository.load(completion: { result in
+				switch result {
+					case .success(let userPreferences):
+						self.userPreferences.hasReadFeedbackButtonAlertMessage = userPreferences.hasReadFeedbackButtonAlertMessage
+						self.userPreferences.showFeedbackButton = userPreferences.showFeedbackButton
+					case .failure(let failure):
+						print("Erreur : \(failure)")
+				}
+			})
 		}
 		.feedbackFloatingButton()
 	}
