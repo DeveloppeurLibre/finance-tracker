@@ -11,6 +11,7 @@ extension Color {
 	static let accentButtonText = Color("accent-button-text")
 	static let appBackground = Color("app-background")
 	static let cellBackground = Color("cell-background")
+	static let feedbackButtonBackground = Color("feedback_button_background")
 	static let mainButtonBackground = Color("main-button-background")
 	static let mainButtonText = Color("main-button-text")
 	static let mainText = Color("main-text")
