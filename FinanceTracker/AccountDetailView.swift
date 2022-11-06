@@ -17,9 +17,11 @@ struct AccountDetailView: View {
 	@State private var isShowingTransactionAlert = false
 	@State private var selectedTransactionToDelete: Transaction? = nil
 	@State private var isEditingMode = false
+	@State private var isPresentingInitialAmountAlert = false
+	@State private var newInitialAmount = ""
 	@FocusState private var focusedField: Field?
 	
-    var body: some View {
+	var body: some View {
 		ScrollView {
 			VStack(spacing: 24) {
 				HStack {
@@ -63,6 +65,7 @@ struct AccountDetailView: View {
 		.sheet(isPresented: $isPresentingNewTransactionScreen, content: {
 			NewTransactionView(selectedAccountId: account.id)
 		})
+		.navigationBarTitleDisplayMode(.inline)
 		.toolbar {
 			Menu {
 				Button {
@@ -70,6 +73,11 @@ struct AccountDetailView: View {
 					focusedField = .name
 				} label: {
 					Label("Renommer", systemImage: "pencil")
+				}
+				Button {
+					isPresentingInitialAmountAlert = true
+				} label: {
+					Label("Modifier le solde initial", systemImage: account.currency.iconName)
 				}
 				Button(role: .destructive) {
 					isShowingAlert = true
@@ -113,7 +121,23 @@ struct AccountDetailView: View {
 				secondaryButton: .cancel(Text("Annuler"))
 			)
 		}
-    }
+		.alert("Modifier le solde initial", isPresented: $isPresentingInitialAmountAlert, actions: {
+			TextField("Nouveau montant", text: $newInitialAmount)
+			Button("Annuler", role: .cancel) {
+				isPresentingInitialAmountAlert = false
+			}
+			Button {
+				if let newAmount = Float(newInitialAmount) {
+					account.initialAmount = newAmount
+				}
+				isPresentingInitialAmountAlert = false
+			} label: {
+				Text("Confirmer")
+			}
+		}, message: {
+			Text("Quel est le nouveau montant initial souhaité ?")
+		})
+	}
 	
 	private enum Field: Int, Hashable {
 		case name
@@ -121,10 +145,10 @@ struct AccountDetailView: View {
 }
 
 struct AccountDetailView_Previews: PreviewProvider {
-    static var previews: some View {
+	static var previews: some View {
 		NavigationView {
 			AccountDetailView(account: previewAccounts[0])
 				.environmentObject(AccountsList(accounts: previewAccounts))
 		}
-    }
+	}
 }

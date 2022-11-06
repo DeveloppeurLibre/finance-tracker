@@ -9,7 +9,9 @@ import SwiftUI
 
 struct HomeView: View {
 	
+	private let preferenceRepository = PreferenceRepository()
 	@Environment(\.scenePhase) private var scenePhase
+	@EnvironmentObject var userPreferences: UserPreferences
 	
 	@State private var isPresentingNewAccountScreen = false
 	@State private var isPresentingNewTransactionScreen = false
@@ -21,22 +23,33 @@ struct HomeView: View {
 		NavigationView {
 			ScrollView {
 				VStack(spacing: 32) {
-					VStack(spacing: 8) {
-						Text("Solde total :")
-						Text("\(String(format: "%.2f", accountsList.accounts.map { $0.amount }.reduce(0, +))) €")
-							.font(.system(size: 32, weight: .bold))
-					}
-					.frame(maxWidth: .infinity)
-					HStack(spacing: 16) {
-						AccentButton(title: "+ transaction", color: Color("purple")) {
-							if accountsList.accounts.isEmpty {
-								isShowingAlert = true
-							} else {
-								isPresentingNewTransactionScreen = true
+					ZStack(alignment: .topTrailing) {
+						VStack(spacing: 32) {
+							VStack(spacing: 8) {
+								Text("Solde total :")
+								Text("\(String(format: "%.2f", accountsList.accounts.map { $0.amount }.reduce(0, +))) €")
+									.font(.system(size: 32, weight: .bold))
+							}
+							.frame(maxWidth: .infinity)
+							HStack(spacing: 16) {
+								AccentButton(title: "+ transaction", color: Color("purple")) {
+									if accountsList.accounts.isEmpty {
+										isShowingAlert = true
+									} else {
+										isPresentingNewTransactionScreen = true
+									}
+								}
+								AccentButton(title: "+ account", color: Color("orange")) {
+									isPresentingNewAccountScreen = true
+								}
 							}
 						}
-						AccentButton(title: "+ account", color: Color("orange")) {
-							isPresentingNewAccountScreen = true
+						.padding(.top, 24)
+						NavigationLink {
+							SettingsScreen()
+						} label: {
+							Image(systemName: "gearshape")
+								.imageScale(.large)
 						}
 					}
 					VStack(alignment: .leading) {
@@ -76,19 +89,21 @@ struct HomeView: View {
 						}
 					}
 				}
-				.padding(24)
+				.padding(.horizontal, 24)
+				.padding(.bottom, 24)
 			}
 			.navigationBarHidden(true)
+			.navigationTitle(Text("Mes comptes"))
 			.background(Color.appBackground)
 			.sheet(isPresented: $isPresentingNewAccountScreen) {
 				AccountCreationView { newAccount in
 					accountsList.accounts.append(newAccount)
 				}
 			}
-			.sheet(isPresented: $isPresentingNewTransactionScreen, content: {
+			.sheet(isPresented: $isPresentingNewTransactionScreen) {
 				NewTransactionView(selectedAccountId: nil)
 					.environmentObject(accountsList)
-			})
+			}
 			.alert(isPresented: $isShowingAlert) {
 				Alert(
 					title: Text("Hop !"),
@@ -101,10 +116,15 @@ struct HomeView: View {
 			}
 		}
 		.foregroundColor(Color.mainText)
-		.accentColor(.black)
+		.accentColor(Color.mainText)
 		.onChange(of: scenePhase) { phase in
 			if phase == .inactive {
 				AccountsList.save(accounts: accountsList.accounts) { result in
+					if case .failure(let error) = result {
+						fatalError(error.localizedDescription)
+					}
+				}
+				preferenceRepository.save(userPreferences: userPreferences) { result in
 					if case .failure(let error) = result {
 						fatalError(error.localizedDescription)
 					}
@@ -120,12 +140,23 @@ struct HomeView: View {
 						accountsList.accounts = accounts
 				}
 			}
+			preferenceRepository.load(completion: { result in
+				switch result {
+					case .success(let userPreferences):
+						self.userPreferences.hasReadFeedbackButtonAlertMessage = userPreferences.hasReadFeedbackButtonAlertMessage
+						self.userPreferences.showFeedbackButton = userPreferences.showFeedbackButton
+					case .failure(let failure):
+						print("Erreur : \(failure)")
+				}
+			})
 		}
+		.feedbackFloatingButton(isShowingButton: $userPreferences.showFeedbackButton)
 	}
 }
 
 struct ContentView_Previews: PreviewProvider {
 	static var previews: some View {
 		HomeView()
+			.environmentObject(UserPreferences())
 	}
 }
