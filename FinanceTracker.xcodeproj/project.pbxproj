@@ -35,6 +35,7 @@
 		64D80D3A2850DA730058425D /* AccountList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D80D392850DA730058425D /* AccountList.swift */; };
 		64D80D3C285201DA0058425D /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D80D3B285201DA0058425D /* Transaction.swift */; };
 		64D80D3E2852029A0058425D /* TransactionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D80D3D2852029A0058425D /* TransactionCell.swift */; };
+		64EE9FA22919093900616478 /* AmountKeyboardToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64EE9FA12919093900616478 /* AmountKeyboardToolbar.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -67,6 +68,7 @@
 		64D80D392850DA730058425D /* AccountList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountList.swift; sourceTree = "<group>"; };
 		64D80D3B285201DA0058425D /* Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
 		64D80D3D2852029A0058425D /* TransactionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCell.swift; sourceTree = "<group>"; };
+		64EE9FA12919093900616478 /* AmountKeyboardToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmountKeyboardToolbar.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,6 +127,7 @@
 				64BCE03A290EED7100CF64E6 /* API_KEY.swift */,
 				64BCE03C290EF7E300CF64E6 /* PreferencesRepository.swift */,
 				64BCE03E290EFB2900CF64E6 /* UserPreferences.swift */,
+				64EE9FA12919093900616478 /* AmountKeyboardToolbar.swift */,
 				6499E916283D095E0072AA7D /* Assets.xcassets */,
 				6499E918283D095E0072AA7D /* Preview Content */,
 			);
@@ -227,6 +230,7 @@
 				64BCE039290EDF6400CF64E6 /* AirTableRepository.swift in Sources */,
 				64BD2404284221FA00EC8E7D /* Account.swift in Sources */,
 				64BCE03D290EF7E300CF64E6 /* PreferencesRepository.swift in Sources */,
+				64EE9FA22919093900616478 /* AmountKeyboardToolbar.swift in Sources */,
 				64BCE037290ED03400CF64E6 /* FeedbackView.swift in Sources */,
 				644F88C0284F441200F19AAF /* AccentButton.swift in Sources */,
 				6471B8392912D9BF00B161EB /* SettingsScreen.swift in Sources */,
