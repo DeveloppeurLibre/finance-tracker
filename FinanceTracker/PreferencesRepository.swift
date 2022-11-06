@@ -16,15 +16,17 @@ class PreferenceRepository {
 	// MARK: - Public methods
 	
 	func createPreferenceFileIfNedded() {
-		DispatchQueue.global(qos: .background).async {
-			do {
+		
+		do {
+			let outfile = try fileURL()
+			let fileManager = FileManager.default
+			if !fileManager.fileExists(atPath: outfile.relativePath) {
 				let userPreferences = UserPreferences()
 				let data = try JSONEncoder().encode(userPreferences)
-				let outfile = try self.fileURL()
 				try data.write(to: outfile)
-			} catch {
-				print(error.localizedDescription)
 			}
+		} catch {
+			print(error.localizedDescription)
 		}
 	}
 	

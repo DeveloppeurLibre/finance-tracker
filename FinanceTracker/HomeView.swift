@@ -23,22 +23,33 @@ struct HomeView: View {
 		NavigationView {
 			ScrollView {
 				VStack(spacing: 32) {
-					VStack(spacing: 8) {
-						Text("Solde total :")
-						Text("\(String(format: "%.2f", accountsList.accounts.map { $0.amount }.reduce(0, +))) €")
-							.font(.system(size: 32, weight: .bold))
-					}
-					.frame(maxWidth: .infinity)
-					HStack(spacing: 16) {
-						AccentButton(title: "+ transaction", color: Color("purple")) {
-							if accountsList.accounts.isEmpty {
-								isShowingAlert = true
-							} else {
-								isPresentingNewTransactionScreen = true
+					ZStack(alignment: .topTrailing) {
+						VStack(spacing: 32) {
+							VStack(spacing: 8) {
+								Text("Solde total :")
+								Text("\(String(format: "%.2f", accountsList.accounts.map { $0.amount }.reduce(0, +))) €")
+									.font(.system(size: 32, weight: .bold))
+							}
+							.frame(maxWidth: .infinity)
+							HStack(spacing: 16) {
+								AccentButton(title: "+ transaction", color: Color("purple")) {
+									if accountsList.accounts.isEmpty {
+										isShowingAlert = true
+									} else {
+										isPresentingNewTransactionScreen = true
+									}
+								}
+								AccentButton(title: "+ account", color: Color("orange")) {
+									isPresentingNewAccountScreen = true
+								}
 							}
 						}
-						AccentButton(title: "+ account", color: Color("orange")) {
-							isPresentingNewAccountScreen = true
+						.padding(.top, 24)
+						NavigationLink {
+							SettingsScreen()
+						} label: {
+							Image(systemName: "gearshape")
+								.imageScale(.large)
 						}
 					}
 					VStack(alignment: .leading) {
@@ -78,19 +89,21 @@ struct HomeView: View {
 						}
 					}
 				}
-				.padding(24)
+				.padding(.horizontal, 24)
+				.padding(.bottom, 24)
 			}
 			.navigationBarHidden(true)
+			.navigationTitle(Text("Mes comptes"))
 			.background(Color.appBackground)
 			.sheet(isPresented: $isPresentingNewAccountScreen) {
 				AccountCreationView { newAccount in
 					accountsList.accounts.append(newAccount)
 				}
 			}
-			.sheet(isPresented: $isPresentingNewTransactionScreen, content: {
+			.sheet(isPresented: $isPresentingNewTransactionScreen) {
 				NewTransactionView(selectedAccountId: nil)
 					.environmentObject(accountsList)
-			})
+			}
 			.alert(isPresented: $isShowingAlert) {
 				Alert(
 					title: Text("Hop !"),
@@ -144,5 +157,6 @@ struct HomeView: View {
 struct ContentView_Previews: PreviewProvider {
 	static var previews: some View {
 		HomeView()
+			.environmentObject(UserPreferences())
 	}
 }
