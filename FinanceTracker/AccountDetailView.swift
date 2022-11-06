@@ -65,6 +65,7 @@ struct AccountDetailView: View {
 		.sheet(isPresented: $isPresentingNewTransactionScreen, content: {
 			NewTransactionView(selectedAccountId: account.id)
 		})
+		.navigationBarTitleDisplayMode(.inline)
 		.toolbar {
 			Menu {
 				Button {
