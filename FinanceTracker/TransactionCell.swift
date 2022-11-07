@@ -30,8 +30,18 @@ struct TransactionCell: View {
 							.focused($focusedField, equals: .label)
 							.font(.headline)
 					} else {
-						Text(transaction.label)
-							.font(.headline)
+						if transaction.label == "" {
+							if transaction.amount > 0 {
+								Text("Des sous ! 🤑")
+									.font(.headline)
+							} else {
+								Text("Une dépense 💸")
+									.font(.headline)
+							}
+						} else {
+							Text(transaction.label)
+								.font(.headline)
+						}
 					}
 					Text(dateFormatter.string(from: transaction.date))
 						.font(.footnote)
