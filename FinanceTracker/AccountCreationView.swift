@@ -52,6 +52,7 @@ struct AccountCreationView: View {
 								IconSelectorScreen()
 							} label: {
 								Text("Voir plus")
+									.foregroundColor(.secondaryText)
 							}
 						}
 					}

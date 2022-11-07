@@ -71,22 +71,23 @@ struct IconSelectorScreen: View {
 			Text("Importer des icônes")
 				.font(.title2)
 				.bold()
-			PhotosPicker(selection: $selectedItems, maxSelectionCount: 1, matching: .images) {
-				Circle()
-					.frame(width: 65, height: 65)
-					.foregroundColor(Color.pillBackground.opacity(0.8))
-					.overlay(
-						Image(systemName: "plus")
-							.font(.system(size: 24, weight: .semibold))
-							.foregroundColor(.mainText)
-							.frame(width: 35, height: 35)
-					)
-			}
-			ForEach(selectedImagesData, id: \.self) { data in
-				if let data = data, let uiImage = UIImage(data: data) {
-					Image(uiImage: uiImage)
-						.resizable()
+			LazyVGrid(columns: columns, spacing: 20) {
+				PhotosPicker(selection: $selectedItems, maxSelectionCount: 1, matching: .images) {
+					Circle()
 						.frame(width: 65, height: 65)
+						.foregroundColor(Color.pillBackground.opacity(0.8))
+						.overlay(
+							Image(systemName: "plus")
+								.font(.system(size: 24, weight: .semibold))
+								.foregroundColor(.mainText)
+								.frame(width: 35, height: 35)
+						)
+				}
+				
+				ForEach(selectedImagesData, id: \.self) { data in
+					ImportedIconCell(data: data, isSelected: false, onTap: {
+						
+					})
 				}
 			}
 		}
@@ -98,6 +99,7 @@ struct IconSelectorScreen: View {
 					case .success(let data):
 						if let data {
 							self.selectedImagesData.append(data)
+							self.selectedItems = []
 						} else {
 							print("Data is nil")
 						}
