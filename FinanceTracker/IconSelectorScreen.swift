@@ -76,9 +76,11 @@ struct IconSelectorScreen: View {
 				}
 				
 				ForEach(selectedImagesData, id: \.self) { data in
-					IconCell(icon: .imported(data), isSelected: false, onTap: {
-						
-					})
+					IconCell(
+						icon: .imported(data),
+						isSelected: selectedIcon == .imported(data),
+						onTap: { selectedIcon = .imported(data) }
+					)
 				}
 			}
 		}
