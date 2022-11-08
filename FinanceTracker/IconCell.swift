@@ -11,11 +11,28 @@ struct IconCell: View {
 	
 	let icon: Icon
 	let isSelected: Bool
-	let onTap: () -> Void
+	let displayMode: DisplayMode
+	let onTap: (() -> Void)?
+	
+	init(icon: Icon, isSelected: Bool = false, displayMode: DisplayMode = .normal, onTap: (() -> Void)? = nil) {
+		self.icon = icon
+		self.isSelected = isSelected
+		self.displayMode = displayMode
+		self.onTap = onTap
+	}
+	
+	private var cellSize: CGFloat {
+		switch displayMode {
+			case .normal:
+				return 65
+			case .small:
+				return 50
+		}
+	}
 	
     var body: some View {
 		Button {
-			onTap()
+			onTap?()
 		} label: {
 			switch icon {
 				case .imported(let data):
@@ -24,14 +41,14 @@ struct IconCell: View {
 							Image(uiImage: uiImage)
 								.resizable()
 								.aspectRatio(contentMode: .fill)
-								.frame(width: 65, height: 65)
+								.frame(width: cellSize, height: cellSize)
 								.clipShape(Circle())
 						} else {
 							Circle()
 								.foregroundColor(.pillBackground)
 						}
 					}
-					.frame(width: 65, height: 65)
+					.frame(width: cellSize, height: cellSize)
 					.overlay {
 						if isSelected {
 							ZStack {
@@ -46,19 +63,34 @@ struct IconCell: View {
 						}
 					}
 				case .native(let name):
-					Circle()
-						.frame(width: 65, height: 65)
-						.foregroundColor(isSelected ? Color.pillSelectedBackground : Color.pillBackground)
-						.overlay(
+					switch displayMode {
+						case .normal:
+							Circle()
+								.frame(width: cellSize, height: cellSize)
+								.foregroundColor(isSelected ? Color.pillSelectedBackground : Color.pillBackground)
+								.overlay(
+									Image(name)
+										.resizable()
+										.renderingMode(.template)
+										.foregroundColor(isSelected ? .mainButtonText : .mainText)
+										.frame(width: 35, height: 35)
+								)
+						case .small:
 							Image(name)
-								.resizable()
 								.renderingMode(.template)
-								.foregroundColor(isSelected ? .mainButtonText : .mainText)
-								.frame(width: 35, height: 35)
-						)
+								.resizable()
+								.padding(4)
+								.frame(width: cellSize, height: cellSize)
+					}
+					
 			}
 		}
     }
+	
+	enum DisplayMode {
+		case normal
+		case small
+	}
 }
 
 struct ImportedIconCell_Previews: PreviewProvider {

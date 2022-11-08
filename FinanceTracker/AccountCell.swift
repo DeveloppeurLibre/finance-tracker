@@ -13,11 +13,7 @@ struct AccountCell: View {
 	
     var body: some View {
 		HStack(alignment: .center, spacing: 8) {
-//			Image(account.icon)
-//				.renderingMode(.template)
-//				.resizable()
-//				.padding(4)
-//				.frame(width: 50, height: 50)
+			IconCell(icon: account.icon, displayMode: .small)
 			VStack(alignment: .leading, spacing: 4) {
 				Text(account.name)
 					.font(.headline)
