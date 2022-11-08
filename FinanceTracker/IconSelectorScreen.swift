@@ -11,9 +11,13 @@ import SwiftUI
 @available(iOS 16.0, *)
 struct IconSelectorScreen: View {
 	
+	@Environment(\.presentationMode) var presentationMode
+
 	@State private var selectedIcon: Icon = .native("icon_001")
 	@State private var selectedItems: [PhotosPickerItem] = []
 	@State private var selectedImagesData: [Data] = []
+	
+	let onIconSelected: (Icon) -> Void
 	
 	private let icons = [
 		"icon_001",
@@ -46,45 +50,61 @@ struct IconSelectorScreen: View {
 	]
 	
     var body: some View {
-		ScrollView {
-			Text("Icônes par défaut")
-				.font(.title2)
-				.bold()
-			LazyVGrid(columns: columns, spacing: 20) {
-				ForEach(icons, id: \.self) { iconName in
-					IconCell(
-						icon: .native(iconName),
-						isSelected: selectedIcon == .native(iconName),
-						onTap: { selectedIcon = .native(iconName) }
-					)
+		ScrollView(showsIndicators: false) {
+			VStack(alignment: .leading, spacing: 32) {
+				VStack(alignment: .leading, spacing: 16) {
+					Text("Icônes par défaut")
+						.font(.title2)
+						.bold()
+					LazyVGrid(columns: columns, spacing: 20) {
+						ForEach(icons, id: \.self) { iconName in
+							IconCell(
+								icon: .native(iconName),
+								isSelected: selectedIcon == .native(iconName),
+								onTap: { selectedIcon = .native(iconName) }
+							)
+						}
+					}
+				}
+				VStack(alignment: .leading, spacing: 24) {
+					Text("Importer des icônes")
+						.font(.title2)
+						.bold()
+					LazyVGrid(columns: columns, spacing: 20) {
+						PhotosPicker(selection: $selectedItems, maxSelectionCount: 1, matching: .images) {
+							Circle()
+								.frame(width: 65, height: 65)
+								.foregroundColor(Color.pillBackground.opacity(0.8))
+								.overlay(
+									Image(systemName: "plus")
+										.font(.system(size: 24, weight: .semibold))
+										.foregroundColor(.mainText)
+										.frame(width: 35, height: 35)
+								)
+						}
+						
+						ForEach(selectedImagesData, id: \.self) { data in
+							IconCell(
+								icon: .imported(data),
+								isSelected: selectedIcon == .imported(data),
+								onTap: { selectedIcon = .imported(data) }
+							)
+						}
+					}
 				}
 			}
-			Text("Importer des icônes")
-				.font(.title2)
-				.bold()
-			LazyVGrid(columns: columns, spacing: 20) {
-				PhotosPicker(selection: $selectedItems, maxSelectionCount: 1, matching: .images) {
-					Circle()
-						.frame(width: 65, height: 65)
-						.foregroundColor(Color.pillBackground.opacity(0.8))
-						.overlay(
-							Image(systemName: "plus")
-								.font(.system(size: 24, weight: .semibold))
-								.foregroundColor(.mainText)
-								.frame(width: 35, height: 35)
-						)
-				}
-				
-				ForEach(selectedImagesData, id: \.self) { data in
-					IconCell(
-						icon: .imported(data),
-						isSelected: selectedIcon == .imported(data),
-						onTap: { selectedIcon = .imported(data) }
-					)
-				}
-			}
+			.padding(.bottom, 80)
 		}
+		.padding()
+		.navigationBarTitleDisplayMode(.inline)
 		.background(Color.appBackground)
+		.overlay(alignment: .bottom, content: {
+			MainButton(title: "Valider") {
+				onIconSelected(selectedIcon)
+				presentationMode.wrappedValue.dismiss()
+			}
+			.padding()
+		})
 		.onChange(of: selectedItems) { newValue in
 			guard let item = newValue.first else { return }
 			item.loadTransferable(type: Data.self) { result in
@@ -107,6 +127,6 @@ struct IconSelectorScreen: View {
 @available(iOS 16.0, *)
 struct IconSelectorScreen_Previews: PreviewProvider {
 	static var previews: some View {
-        IconSelectorScreen()
+		IconSelectorScreen(onIconSelected: { _ in })
     }
 }

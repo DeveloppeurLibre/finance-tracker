@@ -17,7 +17,7 @@ struct AccountCreationView: View {
 	@State private var selectedCurrency: Currency = .euro
 	var onAccountCreated: (Account) -> Void
 	
-    var body: some View {
+	var body: some View {
 		NavigationView {
 			VStack(spacing: 32) {
 				VStack(spacing: 16) {
@@ -49,7 +49,9 @@ struct AccountCreationView: View {
 						Spacer()
 						if #available(iOS 16.0, *) {
 							NavigationLink {
-								IconSelectorScreen()
+								IconSelectorScreen(onIconSelected: { selectedIcon in
+									self.selectedIcon = selectedIcon
+								})
 							} label: {
 								Text("Voir plus")
 									.foregroundColor(.secondaryText)
@@ -94,7 +96,8 @@ struct AccountCreationView: View {
 			.navigationTitle(Text("Nouveau compte"))
 			.navigationBarHidden(true)
 		}
-    }
+		.accentColor(Color.mainText)
+	}
 }
 
 struct AccountCreationView_Previews: PreviewProvider {
