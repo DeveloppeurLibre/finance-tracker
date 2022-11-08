@@ -23,6 +23,8 @@ struct IconCell: View {
 	
 	private var cellSize: CGFloat {
 		switch displayMode {
+			case .large:
+				return 90
 			case .normal:
 				return 65
 			case .small:
@@ -64,6 +66,12 @@ struct IconCell: View {
 					}
 				case .native(let name):
 					switch displayMode {
+						case .large:
+							Image(name)
+								.renderingMode(.template)
+								.resizable()
+								.padding(4)
+								.frame(width: cellSize, height: cellSize)
 						case .normal:
 							Circle()
 								.frame(width: cellSize, height: cellSize)
@@ -88,6 +96,7 @@ struct IconCell: View {
     }
 	
 	enum DisplayMode {
+		case large
 		case normal
 		case small
 	}

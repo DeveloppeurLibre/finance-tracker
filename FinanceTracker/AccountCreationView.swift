@@ -21,14 +21,15 @@ struct AccountCreationView: View {
 		NavigationView {
 			VStack(spacing: 32) {
 				VStack(spacing: 16) {
+					IconCell(icon: selectedIcon, displayMode: .large)
 					Text(accountName == "" ? "Nouveau compte" : accountName)
 						.font(.system(size: 32, weight: .bold))
-						.padding(.top, 32)
 					Text("Solde : \(String(format: "%.2f", Float(amount) ?? 0.0)) \(selectedCurrency.rawValue)")
 						.font(.system(size: 20, weight: .light))
 						.foregroundColor(Color.secondaryText)
 						.frame(maxWidth: .infinity)
 				}
+				.padding(.top, 32)
 				.frame(maxWidth: .infinity)
 				VStack(alignment: .leading) {
 					Text("Nom")
