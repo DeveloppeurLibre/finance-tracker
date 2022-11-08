@@ -11,7 +11,7 @@ import SwiftUI
 @available(iOS 16.0, *)
 struct IconSelectorScreen: View {
 	
-	@State private var selectedIcon: String = "icon_001"
+	@State private var selectedIcon: Icon = .native("icon_001")
 	@State private var selectedItems: [PhotosPickerItem] = []
 	@State private var selectedImagesData: [Data] = []
 	
@@ -52,20 +52,11 @@ struct IconSelectorScreen: View {
 				.bold()
 			LazyVGrid(columns: columns, spacing: 20) {
 				ForEach(icons, id: \.self) { iconName in
-					Button {
-						selectedIcon = iconName
-					} label: {
-						Circle()
-							.frame(width: 65, height: 65)
-							.foregroundColor(iconName == selectedIcon ? Color.pillSelectedBackground : Color.pillBackground)
-							.overlay(
-								Image(iconName)
-									.resizable()
-									.renderingMode(.template)
-									.foregroundColor(iconName == selectedIcon ? .mainButtonText : .mainText)
-									.frame(width: 35, height: 35)
-							)
-					}
+					IconCell(
+						icon: .native(iconName),
+						isSelected: selectedIcon == .native(iconName),
+						onTap: { selectedIcon = .native(iconName) }
+					)
 				}
 			}
 			Text("Importer des icônes")
@@ -85,7 +76,7 @@ struct IconSelectorScreen: View {
 				}
 				
 				ForEach(selectedImagesData, id: \.self) { data in
-					ImportedIconCell(data: data, isSelected: false, onTap: {
+					IconCell(icon: .imported(data), isSelected: false, onTap: {
 						
 					})
 				}

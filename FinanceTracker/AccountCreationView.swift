@@ -13,7 +13,7 @@ struct AccountCreationView: View {
 	
 	@State private var accountName: String = ""
 	@State private var amount: String = ""
-	@State private var selectedIcon: String = "icon_001"
+	@State private var selectedIcon: Icon = .native("icon_001")
 	@State private var selectedCurrency: Currency = .euro
 	var onAccountCreated: (Account) -> Void
 	
@@ -79,7 +79,7 @@ struct AccountCreationView: View {
 				Spacer()
 				MainButton(title: "Créer") {
 					let newAccount = Account(
-						iconName: selectedIcon,
+						icon: selectedIcon,
 						name: accountName,
 						initialAmount: Float(amount) ?? 0,
 						transactions: [],

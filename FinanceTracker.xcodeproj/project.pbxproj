@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		64207F29291A4C0A0027409E /* RestAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64207F28291A4C0A0027409E /* RestAccount.swift */; };
+		64207F2B291A4C1A0027409E /* AccountMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64207F2A291A4C1A0027409E /* AccountMapper.swift */; };
 		6422DA8828F20A5B002AC199 /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6422DA8728F20A5B002AC199 /* Color+Extension.swift */; };
 		643DE79C2861B25B008808FB /* NewTransactionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 643DE79B2861B25B008808FB /* NewTransactionView.swift */; };
 		644F88C0284F441200F19AAF /* AccentButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 644F88BF284F441200F19AAF /* AccentButton.swift */; };
@@ -38,10 +40,13 @@
 		64EE9FA22919093900616478 /* AmountKeyboardToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64EE9FA12919093900616478 /* AmountKeyboardToolbar.swift */; };
 		64EE9FA42919168500616478 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64EE9FA32919168500616478 /* Date+Extension.swift */; };
 		64EE9FA6291936A100616478 /* IconSelectorScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64EE9FA5291936A100616478 /* IconSelectorScreen.swift */; };
-		64EE9FA829194CEB00616478 /* ImportedIconCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64EE9FA729194CEB00616478 /* ImportedIconCell.swift */; };
+		64EE9FA829194CEB00616478 /* IconCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64EE9FA729194CEB00616478 /* IconCell.swift */; };
+		64EE9FAA29195BA600616478 /* Icon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64EE9FA929195BA600616478 /* Icon.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		64207F28291A4C0A0027409E /* RestAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestAccount.swift; sourceTree = "<group>"; };
+		64207F2A291A4C1A0027409E /* AccountMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountMapper.swift; sourceTree = "<group>"; };
 		6422DA8728F20A5B002AC199 /* Color+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extension.swift"; sourceTree = "<group>"; };
 		643DE79B2861B25B008808FB /* NewTransactionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTransactionView.swift; sourceTree = "<group>"; };
 		644F88BF284F441200F19AAF /* AccentButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccentButton.swift; sourceTree = "<group>"; };
@@ -74,7 +79,8 @@
 		64EE9FA12919093900616478 /* AmountKeyboardToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmountKeyboardToolbar.swift; sourceTree = "<group>"; };
 		64EE9FA32919168500616478 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		64EE9FA5291936A100616478 /* IconSelectorScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconSelectorScreen.swift; sourceTree = "<group>"; };
-		64EE9FA729194CEB00616478 /* ImportedIconCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportedIconCell.swift; sourceTree = "<group>"; };
+		64EE9FA729194CEB00616478 /* IconCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconCell.swift; sourceTree = "<group>"; };
+		64EE9FA929195BA600616478 /* Icon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Icon.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,9 +126,12 @@
 				64947946285E0DF600524334 /* AccountSelectorMenu.swift */,
 				643DE79B2861B25B008808FB /* NewTransactionView.swift */,
 				64BD2403284221FA00EC8E7D /* Account.swift */,
+				64207F2A291A4C1A0027409E /* AccountMapper.swift */,
+				64207F28291A4C0A0027409E /* RestAccount.swift */,
+				64EE9FA929195BA600616478 /* Icon.swift */,
 				64D80D392850DA730058425D /* AccountList.swift */,
 				645F7D56284BBBEC0073B070 /* AccountCreationView.swift */,
-				64EE9FA729194CEB00616478 /* ImportedIconCell.swift */,
+				64EE9FA729194CEB00616478 /* IconCell.swift */,
 				64B844952859C2E200E2E7DE /* AccountDetailView.swift */,
 				645F7D5A284F3A300073B070 /* MainButton.swift */,
 				645F7D58284E26C70073B070 /* IconSelector.swift */,
@@ -221,7 +230,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				64EE9FA829194CEB00616478 /* ImportedIconCell.swift in Sources */,
+				64EE9FA829194CEB00616478 /* IconCell.swift in Sources */,
 				64BCE03F290EFB2900CF64E6 /* UserPreferences.swift in Sources */,
 				64D80D3E2852029A0058425D /* TransactionCell.swift in Sources */,
 				6422DA8828F20A5B002AC199 /* Color+Extension.swift in Sources */,
@@ -236,6 +245,7 @@
 				64947947285E0DF600524334 /* AccountSelectorMenu.swift in Sources */,
 				64D80D3C285201DA0058425D /* Transaction.swift in Sources */,
 				64D80D3A2850DA730058425D /* AccountList.swift in Sources */,
+				64EE9FAA29195BA600616478 /* Icon.swift in Sources */,
 				645F7D53284BA9330073B070 /* CurrencySelector.swift in Sources */,
 				64BCE039290EDF6400CF64E6 /* AirTableRepository.swift in Sources */,
 				64BD2404284221FA00EC8E7D /* Account.swift in Sources */,
@@ -243,9 +253,11 @@
 				64EE9FA22919093900616478 /* AmountKeyboardToolbar.swift in Sources */,
 				64BCE037290ED03400CF64E6 /* FeedbackView.swift in Sources */,
 				644F88C0284F441200F19AAF /* AccentButton.swift in Sources */,
+				64207F29291A4C0A0027409E /* RestAccount.swift in Sources */,
 				6471B8392912D9BF00B161EB /* SettingsScreen.swift in Sources */,
 				64BCE035290ECAD800CF64E6 /* FeedbackFloatingButtonModifier.swift in Sources */,
 				643DE79C2861B25B008808FB /* NewTransactionView.swift in Sources */,
+				64207F2B291A4C1A0027409E /* AccountMapper.swift in Sources */,
 				64EE9FA6291936A100616478 /* IconSelectorScreen.swift in Sources */,
 				6499E913283D095A0072AA7D /* FinanceTrackerApp.swift in Sources */,
 				64EE9FA42919168500616478 /* Date+Extension.swift in Sources */,

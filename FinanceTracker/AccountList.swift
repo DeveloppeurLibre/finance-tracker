@@ -42,7 +42,8 @@ class AccountsList: ObservableObject {
 					}
 					return
 				}
-				let accounts = try JSONDecoder().decode([Account].self, from: file.availableData)
+				let restAccounts = try JSONDecoder().decode([RestAccount].self, from: file.availableData)
+				let accounts = restAccounts.map { AccountMapper.map(restAccount: $0) }
 				DispatchQueue.main.async {
 					completion(.success(accounts))
 				}
