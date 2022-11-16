@@ -13,7 +13,7 @@ struct AccountCreationView: View {
 	
 	@State private var accountName: String = ""
 	@State private var amount: String = ""
-	@State private var selectedIcon: Icon = .native("icon_001")
+    @State private var selectedIcon: Icon = .native(iconName: "icon_001")
 	@State private var selectedCurrency: Currency = .euro
 	var onAccountCreated: (Account) -> Void
 	

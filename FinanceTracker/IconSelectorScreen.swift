@@ -13,7 +13,7 @@ struct IconSelectorScreen: View {
 	
 	@Environment(\.presentationMode) var presentationMode
 
-	@State private var selectedIcon: Icon = .native("icon_001")
+    @State private var selectedIcon: Icon = .native(iconName: "icon_001")
 	@State private var selectedItems: [PhotosPickerItem] = []
 	@State private var selectedImagesData: [Data] = []
 	
@@ -59,9 +59,9 @@ struct IconSelectorScreen: View {
 					LazyVGrid(columns: columns, spacing: 20) {
 						ForEach(icons, id: \.self) { iconName in
 							IconCell(
-								icon: .native(iconName),
-								isSelected: selectedIcon == .native(iconName),
-								onTap: { selectedIcon = .native(iconName) }
+                                icon: .native(iconName: iconName),
+                                isSelected: selectedIcon == .native(iconName: iconName),
+                                onTap: { selectedIcon = .native(iconName: iconName) }
 							)
 						}
 					}
@@ -85,9 +85,9 @@ struct IconSelectorScreen: View {
 						
 						ForEach(selectedImagesData, id: \.self) { data in
 							IconCell(
-								icon: .imported(data),
-								isSelected: selectedIcon == .imported(data),
-								onTap: { selectedIcon = .imported(data) }
+                                icon: .imported(data: data),
+                                isSelected: selectedIcon == .imported(data: data),
+                                onTap: { selectedIcon = .imported(data: data) }
 							)
 						}
 					}

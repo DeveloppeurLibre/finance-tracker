@@ -14,7 +14,7 @@ let previewTransactions = [
 ]
 
 let previewAccounts = [
-	Account(icon: .native("icon_002"), name: "PayPal", initialAmount: 289.56, transactions: previewTransactions, currency: .euro),
-	Account(icon: .native("icon_007"), name: "Binance", initialAmount: 3656.54, transactions: previewTransactions, currency: .dollar),
-	Account(icon: .native("icon_001"), name: "Bourso", initialAmount: 2718.45, transactions: previewTransactions, currency: .euro)
+    Account(icon: .native(iconName: "icon_002"), name: "PayPal", initialAmount: 289.56, transactions: previewTransactions, currency: .euro),
+    Account(icon: .native(iconName: "icon_007"), name: "Binance", initialAmount: 3656.54, transactions: previewTransactions, currency: .dollar),
+    Account(icon: .native(iconName: "icon_001"), name: "Bourso", initialAmount: 2718.45, transactions: previewTransactions, currency: .euro)
 ]

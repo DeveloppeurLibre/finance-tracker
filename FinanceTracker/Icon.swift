@@ -8,6 +8,6 @@
 import Foundation
 
 enum Icon: Codable, Equatable {
-	case imported(Data)
-	case native(String)
+    case imported(data: Data)
+    case native(iconName: String)
 }

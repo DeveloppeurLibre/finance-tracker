@@ -40,7 +40,7 @@ struct AccountCell: View {
 struct AccountCell_Previews: PreviewProvider {
 	
 	static let previewAccount = Account(
-		icon: .native("icon_002"),
+        icon: .native(iconName: "icon_002"),
 		name: "PayPal",
 		initialAmount: 3259.60,
 		transactions: previewTransactions,

@@ -106,22 +106,22 @@ struct ImportedIconCell_Previews: PreviewProvider {
     static var previews: some View {
 		VStack(spacing: 36) {
 			IconCell(
-				icon: .imported(UIImage(named: "test_icon")!.pngData()!),
+                icon: .imported(data: UIImage(named: "test_icon")!.pngData()!),
 				isSelected: false,
 				onTap: {}
 			)
 			IconCell(
-				icon: .imported(UIImage(named: "test_icon")!.pngData()!),
+                icon: .imported(data: UIImage(named: "test_icon")!.pngData()!),
 				isSelected: true,
 				onTap: {}
 			)
 			IconCell(
-				icon: .native("icon_001"),
+                icon: .native(iconName: "icon_001"),
 				isSelected: false,
 				onTap: {}
 			)
 			IconCell(
-				icon: .native("icon_001"),
+                icon: .native(iconName: "icon_001"),
 				isSelected: true,
 				onTap: {}
 			)

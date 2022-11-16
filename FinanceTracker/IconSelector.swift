@@ -26,9 +26,9 @@ struct IconSelector: View {
 			HStack {
 				ForEach(icons, id: \.self) { iconName in
 					IconCell(
-						icon: .native(iconName),
-						isSelected: selectedIcon == .native(iconName),
-						onTap: { selectedIcon = .native(iconName) })
+                        icon: .native(iconName: iconName),
+                        isSelected: selectedIcon == .native(iconName: iconName),
+                        onTap: { selectedIcon = .native(iconName: iconName) })
 				}
 			}
 			.padding(.horizontal, 16)
@@ -38,7 +38,7 @@ struct IconSelector: View {
 
 struct IconSelector_Previews: PreviewProvider {
 	
-	@State static var previewSelectedIcon = Icon.native("icon_001")
+    @State static var previewSelectedIcon = Icon.native(iconName: "icon_001")
 	
 	static var previews: some View {
 		IconSelector(selectedIcon: $previewSelectedIcon)
