@@ -15,7 +15,7 @@ struct IconSelectorScreen: View {
 
     @State private var selectedIcon: Icon = .native(iconName: "icon_001")
 	@State private var selectedItems: [PhotosPickerItem] = []
-	@State private var selectedImagesData: [Data] = []
+	@State private var importedImagesFileNames: [String] = []
 	
 	let onIconSelected: (Icon) -> Void
 	
@@ -82,12 +82,11 @@ struct IconSelectorScreen: View {
 										.frame(width: 35, height: 35)
 								)
 						}
-						
-						ForEach(selectedImagesData, id: \.self) { data in
+                        ForEach(importedImagesFileNames, id: \.self) { fileName in
 							IconCell(
-                                icon: .imported(data: data),
-                                isSelected: selectedIcon == .imported(data: data),
-                                onTap: { selectedIcon = .imported(data: data) }
+                                icon: .imported(fileName: fileName),
+                                isSelected: selectedIcon == .imported(fileName: fileName),
+                                onTap: { selectedIcon = .imported(fileName: fileName) }
 							)
 						}
 					}
@@ -111,8 +110,19 @@ struct IconSelectorScreen: View {
 				switch result {
 					case .success(let data):
 						if let data {
-							self.selectedImagesData.append(data)
-							self.selectedItems = []
+                            do {
+                                let path = try FileManager.default.url(for: .documentDirectory,
+                                                                        in: .userDomainMask,
+                                                                        appropriateFor: nil,
+                                                                        create: false)
+                                let fileName = "\(UUID()).jpg"
+                                let url = path.appendingPathComponent(fileName)
+                                print(url)
+                                url.saveData(data)
+                                self.importedImagesFileNames.append(fileName)
+                            } catch {
+                                print(error.localizedDescription)
+                            }
 						} else {
 							print("Data is nil")
 						}

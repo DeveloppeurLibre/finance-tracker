@@ -32,15 +32,23 @@ struct IconCell: View {
 		}
 	}
 	
+    private func imageURL(for fileName: String) -> URL {
+        let path = try! FileManager.default.url(for: .documentDirectory,
+                                                in: .userDomainMask,
+                                                appropriateFor: nil,
+                                                create: false)
+        return path.appendingPathComponent(fileName)
+    }
+    
     var body: some View {
 		Button {
 			onTap?()
 		} label: {
 			switch icon {
-				case .imported(let data):
+				case .imported(let fileName):
 					Group {
-						if let data = data, let uiImage = UIImage(data: data) {
-							Image(uiImage: uiImage)
+                        if let data = imageURL(for: fileName).loadData(), let uiImage = UIImage(data: data) {
+                            Image(uiImage: uiImage)
 								.resizable()
 								.aspectRatio(contentMode: .fill)
 								.frame(width: cellSize, height: cellSize)
@@ -105,16 +113,16 @@ struct IconCell: View {
 struct ImportedIconCell_Previews: PreviewProvider {
     static var previews: some View {
 		VStack(spacing: 36) {
-			IconCell(
-                icon: .imported(data: UIImage(named: "test_icon")!.pngData()!),
-				isSelected: false,
-				onTap: {}
-			)
-			IconCell(
-                icon: .imported(data: UIImage(named: "test_icon")!.pngData()!),
-				isSelected: true,
-				onTap: {}
-			)
+//			IconCell(
+//                icon: .imported(url: UIImage(named: "test_icon")!.pngData()!),
+//				isSelected: false,
+//				onTap: {}
+//			)
+//			IconCell(
+//                icon: .imported(url: UIImage(named: "test_icon")!.pngData()!),
+//				isSelected: true,
+//				onTap: {}
+//			)
 			IconCell(
                 icon: .native(iconName: "icon_001"),
 				isSelected: false,

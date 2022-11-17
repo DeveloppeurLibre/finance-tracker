@@ -10,7 +10,7 @@ import Foundation
 struct RestAccount: Codable {
 	let id: UUID
 	let iconName: String?
-	let importedIconData: String?
+	let importedIconFileName: String?
 	let name: String
 	let initialAmount: Float
 	let currency: Currency

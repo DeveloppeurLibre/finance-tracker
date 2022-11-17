@@ -6,6 +6,20 @@
 //
 
 import Foundation
+import SwiftUI
+
+extension URL {
+    func loadData() -> Data? {
+        try? Data(contentsOf: self)
+    }
+    func saveData(_ data: Data?) {
+        if let data {
+            try? data.write(to: self)
+        } else {
+            try? FileManager.default.removeItem(at: self)
+        }
+    }
+}
 
 class AccountMapper {
     
@@ -15,11 +29,10 @@ class AccountMapper {
         
         if let iconName = restAccount.iconName {
             icon = .native(iconName: iconName)
-        } else if let data = restAccount.importedIconData?.data(using: .utf8) {
-            icon = .imported(data: data)
+        } else if let fileName = restAccount.importedIconFileName {
+            icon = .imported(fileName: fileName)
         } else {
-            
-            icon = .native(iconName: "")
+            icon = .native(iconName: "") // Replace by placeholder
         }
         
         return Account(
@@ -33,11 +46,12 @@ class AccountMapper {
     
     static func map(account: Account) -> RestAccount {
         switch account.icon {
-        case .imported(let data):
+        case .imported(let fileName):
+            
             return RestAccount(
                 id: account.id,
                 iconName: nil,
-                importedIconData: String(decoding: data, as: UTF8.self),
+                importedIconFileName: fileName,
                 name: account.name,
                 initialAmount: account.initialAmount,
                 currency: account.currency,
@@ -48,7 +62,7 @@ class AccountMapper {
             return RestAccount(
                 id: account.id,
                 iconName: name,
-                importedIconData: nil,
+                importedIconFileName: nil,
                 name: account.name,
                 initialAmount: account.initialAmount,
                 currency: account.currency,
