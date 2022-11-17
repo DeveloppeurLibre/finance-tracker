@@ -47,11 +47,19 @@ struct AccountDetailView: View {
 							.font(.callout)
 							.foregroundColor(Color(white: 0.4))
 					}
-					ForEach(account.transactions) { transaction in
-						TransactionCell(transaction: transaction, onDelete: {
-							selectedTransactionToDelete = transaction
-							isShowingTransactionAlert = true
-						})
+					ForEach(monthIndices(), id: \.self) { key in
+						Text(key.formatted())
+							.font(.system(size: 14, weight: .semibold))
+							.foregroundColor(.secondaryText)
+							.frame(maxWidth: .infinity, alignment: .leading)
+							.padding(.leading, 8)
+							.opacity(0.8)
+						ForEach(sortedTransactions(for: key)) { transaction in
+							TransactionCell(transaction: transaction, onDelete: {
+								selectedTransactionToDelete = transaction
+								isShowingTransactionAlert = true
+							})
+						}
 					}
 					Text("Solde initial : \(String(format: "%.2f", account.initialAmount)) \(account.currency.rawValue)")
 						.font(.callout)
@@ -139,8 +147,53 @@ struct AccountDetailView: View {
 		})
 	}
 	
+	
+	// MARK: - Private methods
+	
 	private enum Field: Int, Hashable {
 		case name
+	}
+	
+	private func groupTransactions() -> [YearMonth: [Transaction]] {
+		let calendar = Calendar.current
+		let groupedTransactions = Dictionary(grouping: account.transactions) {
+			YearMonth(
+				year: calendar.component(.year, from: $0.date),
+				month: calendar.component(.month, from: $0.date)
+			)
+		}
+		return groupedTransactions
+	}
+		
+	private func monthIndices() -> [YearMonth] {
+		groupTransactions().map{ $0.key }.sorted(by: { $0 > $1 })
+	}
+	
+	private func sortedTransactions(for month: YearMonth) -> [Transaction] {
+		groupTransactions()[month]?.sorted { $0.date > $1.date } ?? []
+	}
+	
+	private struct YearMonth: Comparable, Hashable {
+		
+		let year: Int
+		let month: Int
+		
+		static func < (lhs: AccountDetailView.YearMonth, rhs: AccountDetailView.YearMonth) -> Bool {
+			if lhs.year == rhs.year {
+				return lhs.month < rhs.month
+			}
+			return lhs.year < rhs.year
+		}
+		
+		func formatted() -> String {
+			let dateString = "\(month) \(year)"
+			let formatter = DateFormatter()
+			formatter.dateFormat = "M yyyy"
+			guard let date = formatter.date(from: dateString) else {
+				return "No date"
+			}
+			return "\(date.localizedMonth.capitalized) \(year)"
+		}
 	}
 }
 

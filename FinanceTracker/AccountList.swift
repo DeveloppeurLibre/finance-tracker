@@ -18,7 +18,7 @@ class AccountsList: ObservableObject {
 	static func save(accounts: [Account], completion: @escaping (Result<Int, Error>)->Void) {
 		DispatchQueue.global(qos: .background).async {
 			do {
-				let data = try JSONEncoder().encode(accounts)
+                let data = try JSONEncoder().encode( accounts.map { AccountMapper.map(account: $0) } )
 				let outfile = try fileURL()
 				try data.write(to: outfile)
 				DispatchQueue.main.async {
@@ -36,13 +36,15 @@ class AccountsList: ObservableObject {
 		DispatchQueue.global(qos: .background).async {
 			do {
 				let fileURL = try fileURL()
+                print(fileURL)
 				guard let file = try? FileHandle(forReadingFrom: fileURL) else {
 					DispatchQueue.main.async {
 						completion(.success([]))
 					}
 					return
 				}
-				let accounts = try JSONDecoder().decode([Account].self, from: file.availableData)
+				let restAccounts = try JSONDecoder().decode([RestAccount].self, from: file.availableData)
+				let accounts = restAccounts.map { AccountMapper.map(restAccount: $0) }
 				DispatchQueue.main.async {
 					completion(.success(accounts))
 				}

@@ -10,7 +10,7 @@ import Foundation
 class Account: Identifiable, ObservableObject, Codable {
 	
 	var id = UUID()
-	let iconName: String
+	let icon: Icon
 	@Published var name: String
 	@Published var initialAmount: Float
 	@Published var transactions: [Transaction]
@@ -23,15 +23,15 @@ class Account: Identifiable, ObservableObject, Codable {
 	enum CodingKeys: CodingKey {
 		case id
 		case name
-		case iconName
+		case icon
 		case initialAmount
 		case currency
 		case transactions
 		case isFavourite
 	}
 	
-	init(iconName: String, name: String, initialAmount: Float, transactions: [Transaction], currency: Currency, isFavourite: Bool = false) {
-		self.iconName = iconName
+	init(icon: Icon, name: String, initialAmount: Float, transactions: [Transaction], currency: Currency, isFavourite: Bool = false) {
+		self.icon = icon
 		self.name = name
 		self.initialAmount = initialAmount
 		self.transactions = transactions
@@ -43,7 +43,7 @@ class Account: Identifiable, ObservableObject, Codable {
 		let container = try decoder.container(keyedBy: CodingKeys.self)
 		self.id = try container.decode(UUID.self, forKey: .id)
 		self.name = try container.decode(String.self, forKey: .name)
-		self.iconName = try container.decode(String.self, forKey: .iconName)
+		self.icon = try container.decode(Icon.self, forKey: .icon)
 		self.initialAmount = try container.decode(Float.self, forKey: .initialAmount)
 		self.currency = try container.decode(Currency.self, forKey: .currency)
 		self.transactions = try container.decode([Transaction].self, forKey: .transactions)
@@ -54,7 +54,7 @@ class Account: Identifiable, ObservableObject, Codable {
 		var container = encoder.container(keyedBy: CodingKeys.self)
 		try container.encode(id, forKey: .id)
 		try container.encode(name, forKey: .name)
-		try container.encode(iconName, forKey: .iconName)
+		try container.encode(icon, forKey: .icon)
 		try container.encode(initialAmount, forKey: .initialAmount)
 		try container.encode(currency.rawValue, forKey: .currency)
 		try container.encode(transactions, forKey: .transactions)

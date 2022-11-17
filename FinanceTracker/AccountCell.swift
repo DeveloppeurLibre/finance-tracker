@@ -13,11 +13,7 @@ struct AccountCell: View {
 	
     var body: some View {
 		HStack(alignment: .center, spacing: 8) {
-			Image(account.iconName)
-				.renderingMode(.template)
-				.resizable()
-				.padding(4)
-				.frame(width: 50, height: 50)
+			IconCell(icon: account.icon, displayMode: .small)
 			VStack(alignment: .leading, spacing: 4) {
 				Text(account.name)
 					.font(.headline)
@@ -44,7 +40,7 @@ struct AccountCell: View {
 struct AccountCell_Previews: PreviewProvider {
 	
 	static let previewAccount = Account(
-		iconName: "icon_002",
+        icon: .native(iconName: "icon_002"),
 		name: "PayPal",
 		initialAmount: 3259.60,
 		transactions: previewTransactions,

@@ -12,25 +12,31 @@ struct NewTransactionView: View {
 	@Environment(\.presentationMode) var presentationMode
 	@EnvironmentObject var accountsList: AccountsList
 	let selectedAccountId: UUID?
+	@FocusState var isAmountTextFieldFocused: Bool
 	@State private var isPresentingNewAccountScreen = false
 	@State private var selectedAccountIndex = 0
 	@State private var textFieldAmount = ""
 	@State private var transactionName = ""
 	@State private var transactionDate = Date()
-
-    var body: some View {
+	@State private var amountIsNegative = false
+	
+	var body: some View {
 		VStack(spacing: 32) {
 			Text("Nouvelle transaction")
 				.foregroundColor(.mainText)
 				.font(.system(size: 32, weight: .bold))
 				.padding(.top, 32)
 			HStack {
+				Text("-")
+					.font(.system(size: 48, weight: .semibold))
+					.foregroundColor(Color.secondaryText)
+					.opacity(amountIsNegative ? 1 : 0)
 				TextField("0.00", text: $textFieldAmount)
-					.keyboardType(.numbersAndPunctuation)
-					.submitLabel(.done)
+					.keyboardType(.decimalPad)
 					.font(.system(size: 48, weight: .semibold))
 					.foregroundColor(Color.secondaryText)
 					.frame(width: nil, height: nil, alignment: .trailing)
+					.focused($isAmountTextFieldFocused)
 				Text(accountsList.accounts[selectedAccountIndex].currency.rawValue)
 					.foregroundColor(.mainText)
 					.font(.system(size: 24, weight: .light))
@@ -55,7 +61,7 @@ struct NewTransactionView: View {
 			MainButton(title: "Ajouter") {
 				let newTransaction = Transaction(
 					label: transactionName,
-					amount: Float(textFieldAmount) ?? 0.0,
+					amount: (Float(textFieldAmount) ?? 0.0) * (amountIsNegative ? -1 : 1),
 					currency: accountsList.accounts[selectedAccountIndex].currency,
 					date: transactionDate
 				)
@@ -66,6 +72,7 @@ struct NewTransactionView: View {
 		.padding()
 		.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
 		.background(Color.appBackground)
+		.ignoresSafeArea(.keyboard)
 		.sheet(isPresented: $isPresentingNewAccountScreen) {
 			AccountCreationView { newAccount in
 				accountsList.accounts.append(newAccount)
@@ -79,7 +86,25 @@ struct NewTransactionView: View {
 				self.selectedAccountIndex = index
 			}
 		}
-    }
+		.overlay {
+			if isAmountTextFieldFocused {
+				VStack(spacing: 0) {
+					Spacer()
+					Divider()
+					AmountKeyboardToolbar {
+						isAmountTextFieldFocused = false
+					} onNegativePressed: {
+						amountIsNegative = true
+					} onPositivePressed: {
+						amountIsNegative = false
+					}
+
+				}
+				.opacity(isAmountTextFieldFocused ? 1 : 0)
+				.animation(.easeOut(duration: 0.2), value: isAmountTextFieldFocused)
+			}
+		}
+	}
 }
 
 struct NewTransactionView_Previews: PreviewProvider {

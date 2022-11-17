@@ -9,7 +9,7 @@ import SwiftUI
 
 struct IconSelector: View {
 	
-	@Binding var selectedIcon: String
+	@Binding var selectedIcon: Icon
 	
 	private let icons = [
 		"icon_001",
@@ -25,20 +25,10 @@ struct IconSelector: View {
 		ScrollView(.horizontal, showsIndicators: false) {
 			HStack {
 				ForEach(icons, id: \.self) { iconName in
-					Button {
-						selectedIcon = iconName
-					} label: {
-						Circle()
-							.frame(width: 65, height: 65)
-							.foregroundColor(iconName == selectedIcon ? Color.pillSelectedBackground : Color.pillBackground)
-							.overlay(
-								Image(iconName)
-									.resizable()
-									.renderingMode(.template)
-									.foregroundColor(iconName == selectedIcon ? .mainButtonText : .mainText)
-									.frame(width: 35, height: 35)
-							)
-					}
+					IconCell(
+                        icon: .native(iconName: iconName),
+                        isSelected: selectedIcon == .native(iconName: iconName),
+                        onTap: { selectedIcon = .native(iconName: iconName) })
 				}
 			}
 			.padding(.horizontal, 16)
@@ -48,7 +38,7 @@ struct IconSelector: View {
 
 struct IconSelector_Previews: PreviewProvider {
 	
-	@State static var previewSelectedIcon = "icon_001"
+    @State static var previewSelectedIcon = Icon.native(iconName: "icon_001")
 	
 	static var previews: some View {
 		IconSelector(selectedIcon: $previewSelectedIcon)
