@@ -24,7 +24,7 @@ struct AccountCreationView: View {
 					IconCell(icon: selectedIcon, displayMode: .large)
 					Text(accountName == "" ? "Nouveau compte" : accountName)
 						.font(.system(size: 32, weight: .bold))
-					Text("Solde : \(String(format: "%.2f", Float(amount) ?? 0.0)) \(selectedCurrency.rawValue)")
+                    Text("Solde : \(amount.floatValue.localizedString) \(selectedCurrency.rawValue)")
 						.font(.system(size: 20, weight: .light))
 						.foregroundColor(Color.secondaryText)
 						.frame(maxWidth: .infinity)

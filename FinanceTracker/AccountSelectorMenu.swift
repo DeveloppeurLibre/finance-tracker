@@ -20,7 +20,7 @@ struct AccountSelectorMenu: View {
 				HStack {
 					Text(accountsList.accounts[selectedAccountIndex].name)
 						.foregroundColor(.mainText)
-					Text("(\(String(format: "%.2f", accountsList.accounts[selectedAccountIndex].amount)) \(accountsList.accounts[selectedAccountIndex].currency.rawValue))")
+                    Text("(\(accountsList.accounts[selectedAccountIndex].amount.localizedString) \(accountsList.accounts[selectedAccountIndex].currency.rawValue))")
 						.foregroundColor(.secondaryText)
 				}
 				.padding(12)
@@ -44,7 +44,7 @@ struct AccountSelectorMenu: View {
 						HStack {
 							Text(account.name)
 								.foregroundColor(.mainText)
-							Text("(\(String(format: "%.2f", account.amount)) \(account.currency.rawValue))")
+                            Text("(\(account.amount.localizedString) \(account.currency.rawValue))")
 								.foregroundColor(.secondaryText)
 						}
 						.padding(12)

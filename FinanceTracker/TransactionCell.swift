@@ -48,7 +48,7 @@ struct TransactionCell: View {
 						.foregroundColor(Color(white: 0.4))
 				}
 				Spacer()
-				Text("\(String(format: "%.2f", transaction.amount)) \(transaction.currency.rawValue)")
+                Text("\(transaction.amount.localizedString) \(transaction.currency.rawValue)")
 			}
 			if isDetailedMode {
 				HStack {
