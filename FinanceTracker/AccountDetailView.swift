@@ -34,7 +34,7 @@ struct AccountDetailView: View {
 							.font(.system(size: 32, weight: .bold))
 					}
 					Spacer()
-					Text("\(String(format: "%.2f", account.amount)) \(account.currency.rawValue)")
+                    Text("\(account.amount.localizedString) \(account.currency.rawValue)")
 						.font(.system(size: 32, weight: .light))
 				}
 				AccentButton(title: "+ transaction", color: Color("purple")) {
@@ -61,7 +61,7 @@ struct AccountDetailView: View {
 							})
 						}
 					}
-					Text("Solde initial : \(String(format: "%.2f", account.initialAmount)) \(account.currency.rawValue)")
+                    Text("Solde initial : \(account.initialAmount.localizedString) \(account.currency.rawValue)")
 						.font(.callout)
 						.foregroundColor(Color(white: 0.4))
 						.padding()
