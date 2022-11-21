@@ -27,7 +27,7 @@ struct HomeView: View {
 						VStack(spacing: 32) {
 							VStack(spacing: 8) {
 								Text("Solde total :")
-								Text("\(String(format: "%.2f", accountsList.accounts.map { $0.amount }.reduce(0, +))) €")
+                                Text(accountsList.accounts.map { $0.amount }.reduce(0, +).localizedString + " €")
 									.font(.system(size: 32, weight: .bold))
 							}
 							.frame(maxWidth: .infinity)

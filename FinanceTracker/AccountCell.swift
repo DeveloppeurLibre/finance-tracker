@@ -18,7 +18,7 @@ struct AccountCell: View {
 				Text(account.name)
 					.font(.headline)
 					.foregroundColor(.mainText)
-				Text("Solde : \(String(format: "%.2f", account.amount)) €")
+                Text("Solde : \(account.amount.localizedString) €")
 					.font(.footnote)
 					.foregroundColor(Color.secondaryText)
 			}

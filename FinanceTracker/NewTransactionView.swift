@@ -31,7 +31,7 @@ struct NewTransactionView: View {
 					.font(.system(size: 48, weight: .semibold))
 					.foregroundColor(Color.secondaryText)
 					.opacity(amountIsNegative ? 1 : 0)
-				TextField("0.00", text: $textFieldAmount)
+                TextField(Float.zero.localizedString, text: $textFieldAmount)
 					.keyboardType(.decimalPad)
 					.font(.system(size: 48, weight: .semibold))
 					.foregroundColor(Color.secondaryText)
@@ -61,7 +61,7 @@ struct NewTransactionView: View {
 			MainButton(title: "Ajouter") {
 				let newTransaction = Transaction(
 					label: transactionName,
-					amount: (Float(textFieldAmount) ?? 0.0) * (amountIsNegative ? -1 : 1),
+                    amount: textFieldAmount.floatValue * (amountIsNegative ? -1 : 1),
 					currency: accountsList.accounts[selectedAccountIndex].currency,
 					date: transactionDate
 				)
